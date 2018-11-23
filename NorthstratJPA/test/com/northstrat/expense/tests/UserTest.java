@@ -29,6 +29,9 @@ class UserTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
+		em.close();
+		emf.close();
+		user = null;
 	}
 
 	@Test
@@ -37,7 +40,10 @@ class UserTest {
 		assertEquals("Coleman", user.getUsername());
 		assertEquals("password", user.getPassword());
 		assertTrue(user.isAdmin());
-		assertEquals(1, user.getProfile().getId());
+		assertEquals("Mark", user.getFirstName());
+		assertEquals("Coleman", user.getLastName());
+		assertEquals("Mark.Coleman@northstrat.com", user.getEmail());
+		assertEquals("Software Engineer", user.getTitle());
 		assertEquals(1, user.getExpenses().size());
 		assertEquals(1, user.getTravel().size());
 	}

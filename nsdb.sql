@@ -66,21 +66,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `profile`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `profile` ;
-
-CREATE TABLE IF NOT EXISTS `profile` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(45) NULL,
-  `last_name` VARCHAR(45) NULL,
-  `email` VARCHAR(100) NULL,
-  `title` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `user`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `user` ;
@@ -89,14 +74,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NULL,
   `password` VARCHAR(45) NULL,
-  `profile_id` INT NULL,
   `admin` VARCHAR(45) NULL,
   `expense_id` INT NULL,
   `travel_id` INT NULL,
+  `first_name` VARCHAR(45) NULL,
+  `last_name` VARCHAR(45) NULL,
+  `email` VARCHAR(100) NULL,
+  `title` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   INDEX `expense_id_idx` (`expense_id` ASC),
   INDEX `travel_id_idx` (`travel_id` ASC),
-  INDEX `fk_profile_idx` (`profile_id` ASC),
   CONSTRAINT `fk_expense`
     FOREIGN KEY (`expense_id`)
     REFERENCES `expense` (`id`)
@@ -105,11 +92,6 @@ CREATE TABLE IF NOT EXISTS `user` (
   CONSTRAINT `fk_travel`
     FOREIGN KEY (`travel_id`)
     REFERENCES `travel` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_profile`
-    FOREIGN KEY (`profile_id`)
-    REFERENCES `profile` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -147,20 +129,10 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `profile`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `nsdb`;
-INSERT INTO `profile` (`id`, `first_name`, `last_name`, `email`, `title`) VALUES (1, 'Mark', 'Coleman', 'Mark.coleman@northstrat.com', 'Software Engineer');
-
-COMMIT;
-
-
--- -----------------------------------------------------
 -- Data for table `user`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `nsdb`;
-INSERT INTO `user` (`id`, `username`, `password`, `profile_id`, `admin`, `expense_id`, `travel_id`) VALUES (1, 'Coleman', 'password', 1, '1', 1, 1);
+INSERT INTO `user` (`id`, `username`, `password`, `admin`, `expense_id`, `travel_id`, `first_name`, `last_name`, `email`, `title`) VALUES (1, 'Coleman', 'password', '1', 1, 1, 'Mark', 'Coleman', 'Mark.Coleman@northstrat.com', 'Software Engineer');
 
 COMMIT;

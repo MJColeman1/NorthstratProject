@@ -9,7 +9,6 @@
     </provider>
 
 		<class>com.northstrat.expense.entities.User</class>
-		<class>com.northstrat.expense.entities.Profile</class>
 		<class>com.northstrat.expense.entities.Travel</class>
 		<class>com.northstrat.expense.entities.Expense</class>
 	

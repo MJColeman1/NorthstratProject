@@ -50,7 +50,7 @@ public class Travel {
 	@Column(name = "total_cost")
 	private double totalCost;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
 	private User user;
 	
