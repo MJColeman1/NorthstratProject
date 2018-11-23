@@ -1,5 +1,7 @@
 package com.northstrat.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,15 +44,26 @@ public class ExpenseServiceImpl implements ExpenseService {
 	@Override
 	public Expense createExpenseByLoggedInUser(Expense expense, int id) {
 		User u = ur.findById(id);
-		Expense e = new Expense();
-		e.setDescription(expense.getDescription());
-		e.setAttendees(expense.getAttendees());
-		e.setGlAccount(expense.getGlAccount());
-		e.setStatus(expense.getStatus());
-		e.setAmount(expense.getAmount());
-		e.setUser(u);
-		er.saveAndFlush(e);
-		return e;
+		expense.setUser(u);
+		return er.saveAndFlush(expense);
+	}
+
+	@Override
+	public Expense updateExpenseByLoggedInUser(Expense expense, int expenseId, int userId) {
+		User u = ur.findById(userId);
+		Expense managed = er.findById(expenseId);
+		managed.setDescription(expense.getDescription());
+		managed.setAttendees(expense.getAttendees());
+		managed.setAmount(expense.getAmount());
+		managed.setGlAccount(expense.getGlAccount());
+		managed.setStatus(expense.getStatus());
+		managed.setUser(u);
+		return er.saveAndFlush(managed);
+	}
+
+	@Override
+	public List<Expense> show() {
+		return er.findAll();
 	}
 
 }

@@ -27,14 +27,20 @@ public class ExpenseController {
 		return es.findByStatus(status);
 	}
 	
-	@RequestMapping(path = "/expense", method = RequestMethod.POST) 
-	public Expense createExpense(@RequestBody Expense expense) {
-		return es.createExpense(expense);
-	}
+//	@RequestMapping(path = "/expense", method = RequestMethod.POST) 
+//	public Expense createExpense(@RequestBody Expense expense) {
+//		return es.createExpense(expense);
+//	}
 	
 	@RequestMapping(path = "/user/{id}/expense", method = RequestMethod.POST)
 	public Expense createExpense(@RequestBody Expense expense, @PathVariable int id) {
 		return es.createExpenseByLoggedInUser(expense, id);
+	}
+	
+	@RequestMapping(path = "/user/{userId}/expense/{expenseId}", method = RequestMethod.PUT) 
+	public Expense updateExpense(@RequestBody Expense expense, @PathVariable int expenseId, 
+			@PathVariable int userId) {
+		return es.updateExpenseByLoggedInUser(expense, expenseId, userId);
 	}
 	
 	

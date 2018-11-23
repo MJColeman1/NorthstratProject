@@ -1,5 +1,7 @@
 package com.northstrat.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,15 +37,9 @@ public class TravelServiceImpl implements TravelService {
 	@Override
 	public Travel createTravelByLoggedInUser(Travel travel, int id) {
 		User u = ur.findById(id);
-		Travel t = new Travel();
-		t.setProjectChargeCode(travel.getProjectChargeCode());
-		t.setStatus(travel.getStatus());
-		t.setTotalCost(travel.getTotalCost());
-		t.setTravelDates(travel.getTravelDates());
-		t.setTripLocation(travel.getTripLocation());
-		t.setUser(u);
-		tr.saveAndFlush(t);
-		return t;
+		travel.setUser(u);
+		return tr.saveAndFlush(travel);
+		
 	}
 
 	@Override
@@ -60,19 +56,25 @@ public class TravelServiceImpl implements TravelService {
 	}
 
 	@Override
-	public boolean destroyTravelByLoggedInUser(int travelId, int userId) {
-		User u = ur.findById(userId);
-		Travel t = tr.findById(travelId);
-		t.setUser(u);
-		try {
-			tr.deleteById(travelId);
-			return true;
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return false;
+	public List<Travel> show() {
+		return tr.findAll();
 	}
+
+//	@Override
+//	public boolean destroyTravelByLoggedInUser(int travelId, int userId) {
+//		User u = ur.findById(userId);
+//		Travel t = tr.findById(travelId);
+////		t.setUser(u);
+//		t.getUser().setTravel(null);
+//		try {
+//			tr.delete(t);;
+//			return true;
+//		}
+//		catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return false;
+//	}
 
 }

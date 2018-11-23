@@ -1,5 +1,7 @@
 package com.northstrat.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,8 +44,13 @@ public class TravelController {
 		return ts.updateTravelByLoggedInUser(travel, travelId, userId);
 	}
 	
-	@RequestMapping(path = "/user/{userId}/travel/{travelId}", method = RequestMethod.DELETE)
-	public Boolean delete(@PathVariable int userId, @PathVariable int travelId) {
-		return ts.destroyTravelByLoggedInUser(travelId, userId);
+//	@RequestMapping(path = "/user/{userId}/travel/{travelId}", method = RequestMethod.DELETE)
+//	public Boolean delete(@PathVariable int userId, @PathVariable int travelId) {
+//		return ts.destroyTravelByLoggedInUser(travelId, userId);
+//	}
+	
+	@RequestMapping(path = "/travel", method = RequestMethod.GET)
+	public List<Travel> show() {
+		return ts.show();
 	}
 }

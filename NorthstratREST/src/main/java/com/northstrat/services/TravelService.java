@@ -1,5 +1,7 @@
 package com.northstrat.services;
 
+import java.util.List;
+
 import com.northstrat.expense.entities.Travel;
 
 public interface TravelService {
@@ -14,6 +16,8 @@ public interface TravelService {
 	
 	Travel updateTravelByLoggedInUser(Travel travel, int travelId, int id);
 	
-	boolean destroyTravelByLoggedInUser(int travelId, int userId);
+	List<Travel> show();
+	
+//	boolean destroyTravelByLoggedInUser(int travelId, int userId);
 
 }

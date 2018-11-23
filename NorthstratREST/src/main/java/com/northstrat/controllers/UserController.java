@@ -18,18 +18,23 @@ public class UserController {
 	private UserService us;
 
 	
-	@RequestMapping(path="/user/{id}", method=RequestMethod.GET) 
+	@RequestMapping(path="/user/{id}", method = RequestMethod.GET) 
 	public User findUserById(@PathVariable int id) {
 		return us.findById(id);
 	}
 	
-	@RequestMapping(path="/username/{username}", method=RequestMethod.GET)
+	@RequestMapping(path="/username/{username}", method = RequestMethod.GET)
 	public User findUser(@PathVariable String username) {
 		return us.findByUsername(username);
 	}
 	
-	@RequestMapping(path="/user", method=RequestMethod.POST)
+	@RequestMapping(path="/user", method = RequestMethod.POST)
 	public User create(@RequestBody User user) {
 		return us.createUser(user);
+	}
+	
+	@RequestMapping(path = "/user/{userId}", method = RequestMethod.PUT)
+	public User updateUser(@RequestBody User user, @PathVariable int userId) {
+		return us.updateUser(user, userId);
 	}
 }

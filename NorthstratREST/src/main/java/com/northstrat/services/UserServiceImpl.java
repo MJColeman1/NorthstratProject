@@ -35,6 +35,19 @@ public class UserServiceImpl implements UserService {
 		return ur.findByUsernameIgnoreCase(username);
 	}
 
+	@Override
+	public User updateUser(User user, int userId) {
+		User managed = ur.findById(userId);
+		managed.setUsername(user.getUsername());
+		managed.setPassword(user.getPassword());
+		managed.setFirstName(user.getFirstName());
+		managed.setLastName(user.getLastName());
+		managed.setEmail(user.getEmail());
+		managed.setTitle(user.getTitle());
+		return ur.saveAndFlush(managed);
+		
+	}
+
 
 
 }
