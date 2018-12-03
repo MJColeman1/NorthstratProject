@@ -16,6 +16,6 @@ public interface ExpenseService {
 	
 	Expense updateExpenseByLoggedInUser(Expense expense, int expenseId, int userId);
 	
-	List<Expense> show();
+	List<Expense> index(String username);
 	
 }

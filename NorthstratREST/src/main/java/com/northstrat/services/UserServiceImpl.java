@@ -2,7 +2,12 @@ package com.northstrat.services;
 
 
 
+import java.util.List;
+
+import javax.persistence.NoResultException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.northstrat.expense.entities.User;
@@ -13,18 +18,23 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserRepository ur;
+	
+	@Autowired
+	private PasswordEncoder encoder;
 
 	@Override
 	public User createUser(User user) {
-		User u = new User();
-		u.setUsername(user.getUsername());
-		u.setPassword(user.getPassword());
-		u.setFirstName(user.getFirstName());
-		u.setLastName(user.getFirstName());
-		u.setTitle(user.getTitle());
-		u.setEmail(user.getEmail());
-		ur.saveAndFlush(u);
-		return u;
+//		User u = new User();
+//		u.setUsername(user.getUsername());
+//		u.setPassword(user.getPassword());
+//		u.setFirstName(user.getFirstName());
+//		u.setLastName(user.getLastName());
+//		u.setTitle(user.getTitle());
+//		u.setEmail(user.getEmail());
+		user.setEnabled(true);
+		user.setRole("user");
+		return ur.saveAndFlush(user);
+		
 	}
 	
 	public User findById(int id) {
@@ -46,6 +56,21 @@ public class UserServiceImpl implements UserService {
 		managed.setTitle(user.getTitle());
 		return ur.saveAndFlush(managed);
 		
+	}
+
+	@Override
+	public List<User> show() {
+		return ur.findAll();
+	}
+
+	@Override
+	public User authenticateUser(User user) throws NoResultException {
+		User managedUser = ur.findOneUserByUsername(user.getUsername());
+		
+		if (encoder.matches(user.getPassword(), managedUser.getPassword())) {
+			return managedUser;
+		}
+		return null;
 	}
 
 

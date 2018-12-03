@@ -62,7 +62,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 	}
 
 	@Override
-	public List<Expense> show() {
+	public List<Expense> index(String username) {
 		return er.findAll();
 	}
 

@@ -1,8 +1,10 @@
 package com.northstrat.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,7 @@ import com.northstrat.expense.entities.Travel;
 import com.northstrat.services.TravelService;
 
 @RestController
+@CrossOrigin({"*", "http://localhost:4200"})
 @RequestMapping(path = "/api")
 public class TravelController {
 	
@@ -50,7 +53,7 @@ public class TravelController {
 //	}
 	
 	@RequestMapping(path = "/travel", method = RequestMethod.GET)
-	public List<Travel> show() {
-		return ts.show();
+	public List<Travel> show(Principal principal) {
+		return ts.show(principal.getName());
 	}
 }

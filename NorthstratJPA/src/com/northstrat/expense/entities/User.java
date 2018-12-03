@@ -44,6 +44,10 @@ public class User {
 	
 	private String title;
 	
+	private String role;
+	
+	private boolean enabled;
+	
 	//end of fields
 	
 	//start of constructors
@@ -53,7 +57,7 @@ public class User {
 	}		
 	
 	public User(int id, String username, String password, boolean admin, List<Expense> expenses, List<Travel> travel,
-			String lastName, String firstName, String email, String title) {
+			String lastName, String firstName, String email, String title, String role, boolean enabled) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -65,6 +69,8 @@ public class User {
 		this.firstName = firstName;
 		this.email = email;
 		this.title = title;
+		this.role = role;
+		this.enabled = enabled;
 	}
 	
 	//end of constructors
@@ -141,6 +147,22 @@ public class User {
 		this.title = title;
 	}
 
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -149,7 +171,7 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", admin=" + admin
 				+ ", expenses=" + expenses + ", travel=" + travel + ", lastName=" + lastName + ", firstName="
-				+ firstName + ", email=" + email + ", title=" + title + "]";
+				+ firstName + ", email=" + email + ", title=" + title + ", role=" + role + ", enabled=" + enabled + "]";
 	}
 
 	@Override
@@ -158,11 +180,13 @@ public class User {
 		int result = 1;
 		result = prime * result + (admin ? 1231 : 1237);
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + (enabled ? 1231 : 1237);
 		result = prime * result + ((expenses == null) ? 0 : expenses.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((travel == null) ? 0 : travel.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
@@ -185,6 +209,8 @@ public class User {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
+		if (enabled != other.enabled)
+			return false;
 		if (expenses == null) {
 			if (other.expenses != null)
 				return false;
@@ -206,6 +232,11 @@ public class User {
 			if (other.password != null)
 				return false;
 		} else if (!password.equals(other.password))
+			return false;
+		if (role == null) {
+			if (other.role != null)
+				return false;
+		} else if (!role.equals(other.role))
 			return false;
 		if (title == null) {
 			if (other.title != null)

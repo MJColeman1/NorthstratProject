@@ -56,7 +56,7 @@ public class TravelServiceImpl implements TravelService {
 	}
 
 	@Override
-	public List<Travel> show() {
+	public List<Travel> show(String username) {
 		return tr.findAll();
 	}
 

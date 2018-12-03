@@ -16,7 +16,7 @@ public interface TravelService {
 	
 	Travel updateTravelByLoggedInUser(Travel travel, int travelId, int id);
 	
-	List<Travel> show();
+	List<Travel> show(String username);
 	
 //	boolean destroyTravelByLoggedInUser(int travelId, int userId);
 

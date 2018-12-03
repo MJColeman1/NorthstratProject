@@ -46,6 +46,8 @@ class UserTest {
 		assertEquals("Software Engineer", user.getTitle());
 		assertEquals(1, user.getExpenses().size());
 		assertEquals(1, user.getTravel().size());
+		assertEquals("admin", user.getRole());
+		assertTrue(!user.isEnabled());
 	}
 
 }

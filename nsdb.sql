@@ -23,12 +23,14 @@ DROP TABLE IF EXISTS `user` ;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NULL,
-  `password` VARCHAR(45) NULL,
-  `admin` VARCHAR(45) NULL,
+  `password` VARCHAR(100) NULL,
+  `admin` TINYINT NULL,
   `first_name` VARCHAR(45) NULL,
   `last_name` VARCHAR(45) NULL,
   `email` VARCHAR(100) NULL,
   `title` VARCHAR(45) NULL,
+  `role` VARCHAR(20) NULL,
+  `enabled` TINYINT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -99,7 +101,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `nsdb`;
-INSERT INTO `user` (`id`, `username`, `password`, `admin`, `first_name`, `last_name`, `email`, `title`) VALUES (1, 'Coleman', 'password', '1', 'Mark', 'Coleman', 'Mark.Coleman@northstrat.com', 'Software Engineer');
+INSERT INTO `user` (`id`, `username`, `password`, `admin`, `first_name`, `last_name`, `email`, `title`, `role`, `enabled`) VALUES (1, 'Coleman', 'password', 1, 'Mark', 'Coleman', 'Mark.Coleman@northstrat.com', 'Software Engineer', 'admin', 1);
 
 COMMIT;
 
@@ -109,7 +111,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `nsdb`;
-INSERT INTO `expense` (`id`, `description`, `attendees`, `amount`, `gl_account`, `created_at`, `updated_at`, `status`, `user_id`) VALUES (1, 'test', 'testing', 100, '111000', NULL, NULL, 'Submitted', NULL);
+INSERT INTO `expense` (`id`, `description`, `attendees`, `amount`, `gl_account`, `created_at`, `updated_at`, `status`, `user_id`) VALUES (1, 'test', 'testing', 100, '111000', NULL, NULL, 'Submitted', 1);
 
 COMMIT;
 
@@ -119,6 +121,6 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `nsdb`;
-INSERT INTO `travel` (`id`, `project_charge_code`, `trip_location`, `travel_dates`, `created_at`, `updated_at`, `status`, `total_cost`, `user_id`) VALUES (1, '1', 'Hawaii', '8/12/18-8/18/18', NULL, NULL, 'Submitted', 2000.00, NULL);
+INSERT INTO `travel` (`id`, `project_charge_code`, `trip_location`, `travel_dates`, `created_at`, `updated_at`, `status`, `total_cost`, `user_id`) VALUES (1, '1', 'Hawaii', '8/12/18-8/18/18', NULL, NULL, 'Submitted', 2000.00, 1);
 
 COMMIT;

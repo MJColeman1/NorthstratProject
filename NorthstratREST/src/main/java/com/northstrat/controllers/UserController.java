@@ -1,6 +1,12 @@
 package com.northstrat.controllers;
 
+import java.security.Principal;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +17,7 @@ import com.northstrat.expense.entities.User;
 import com.northstrat.services.UserService;
 
 @RestController
+@CrossOrigin({"*", "http://localhost:4200"})
 @RequestMapping(path = "/api")
 public class UserController {
 	
@@ -23,9 +30,15 @@ public class UserController {
 		return us.findById(id);
 	}
 	
-	@RequestMapping(path="/username/{username}", method = RequestMethod.GET)
-	public User findUser(@PathVariable String username) {
-		return us.findByUsername(username);
+	@RequestMapping(path="/user", method = RequestMethod.GET)
+	public User findUser(Principal principal, HttpServletResponse res) {
+		User u = us.findByUsername(principal.getName());
+		if (u != null) {
+			res.setStatus(200);
+			return u;
+		}
+		res.setStatus(400);
+		return null;
 	}
 	
 	@RequestMapping(path="/user", method = RequestMethod.POST)
@@ -36,5 +49,10 @@ public class UserController {
 	@RequestMapping(path = "/user/{userId}", method = RequestMethod.PUT)
 	public User updateUser(@RequestBody User user, @PathVariable int userId) {
 		return us.updateUser(user, userId);
+	}
+	
+	@RequestMapping(path = "/users", method = RequestMethod.GET)
+	public List<User> show()  {
+		return us.show();
 	}
 }
