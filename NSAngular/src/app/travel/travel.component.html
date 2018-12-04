@@ -1,3 +1,32 @@
-<p>
-  travel works!
-</p>
+<div class="d-flex justify-content-center align-items-center container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+          <form #f="ngForm" role="form">
+            <label class="sr-only" for="tripLocation">Trip Location</label>
+              <input type="text" required minlength="3" name="tripLocation" #tripLocation="ngModel" class="form-control mb-2 mr-sm-2"
+              id="tripLocation" [(ngModel)]="travel.tripLocation" placeholder="Trip Location"/>
+              <!-- <div class="alert alert-danger" *ngIf="tripLocation.touched && !tripLocation.valid">tripLocation must contain minimum 3 characters.</div> -->
+
+            <label class="sr-only" for="travelDates">Travel Dates</label>
+              <input type="text" required minlength="8" name="travelDates" #travelDates="ngModel" class="form-control mb-2 mr-sm-2"
+              id="travelDates" [(ngModel)]="travel.travelDates" placeholder="Travel Dates"/>
+              <!-- <div class="alert alert-danger" *ngIf="password.touched && !password.valid">Password must contain minimum 8 characters.</div> -->
+
+            <label class="sr-only" for="projectChargeCode">Project Charge Code:</label>
+              <input type="text" required minlength="2" name="projectChargeCode" ngModel #projectChargeCode="ngModel" class="form-control mb-2 mr-sm-2"
+              id="projectChargeCode"  [(ngModel)]="travel.projectChargeCode" placeholder="Project Charge Code"/>
+            <!-- <div class="alert alert-danger" *ngIf="projectChargeCode.touched && password !== projectChargeCode">Password fields must match.</div> -->
+
+            <label class="sr-only" for="totalCost">Total Cost:</label>
+              <input type="text" required minlength="2" name="totalCost" #totalCost="ngModel" class="form-control mb-2 mr-sm-2"
+              id="totalCost" [(ngModel)]="travel.totalCost" placeholder="Total Cost" />
+            <!-- <div class="alert alert-danger" *ngIf="totalCost.touched && !totalCost.valid">First Name must contain minimum 2 characters.</div> -->
+
+            <div class="text-center">
+            <button class="btn btn-primary" type="submit" (click)="createTravelReport(travel)">Create Travel Report</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+

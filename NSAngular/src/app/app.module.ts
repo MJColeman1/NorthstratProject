@@ -16,12 +16,16 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthService } from './auth.service';
 import { RegisterComponent } from './register/register.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
 { path: '', pathMatch: 'full', redirectTo: 'login'},
 { path: 'user', component: UserComponent },
 { path: 'login', component: LoginComponent },
 { path: 'register', component: RegisterComponent },
+{ path: 'expense', component: ExpenseComponent},
+{ path: 'travel', component: TravelComponent},
+{ path: 'profile', component: ProfileComponent},
 { path: '**', component: NotFoundComponent}
 ];
 
@@ -35,7 +39,8 @@ const routes: Routes = [
     LoginComponent,
     NotFoundComponent,
     RegisterComponent,
-    NavigationComponent
+    NavigationComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

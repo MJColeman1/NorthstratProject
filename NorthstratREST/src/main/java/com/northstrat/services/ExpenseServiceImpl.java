@@ -42,15 +42,16 @@ public class ExpenseServiceImpl implements ExpenseService {
 	}
 
 	@Override
-	public Expense createExpenseByLoggedInUser(Expense expense, int id) {
-		User u = ur.findById(id);
+	public Expense createExpenseByLoggedInUser(Expense expense, String username) {
+		User u = ur.findByUsernameIgnoreCase(username);
 		expense.setUser(u);
+		expense.setStatus("Submitted");
 		return er.saveAndFlush(expense);
 	}
 
 	@Override
-	public Expense updateExpenseByLoggedInUser(Expense expense, int expenseId, int userId) {
-		User u = ur.findById(userId);
+	public Expense updateExpenseByLoggedInUser(Expense expense, int expenseId, String username) {
+		User u = ur.findByUsernameIgnoreCase(username);
 		Expense managed = er.findById(expenseId);
 		managed.setDescription(expense.getDescription());
 		managed.setAttendees(expense.getAttendees());
@@ -63,7 +64,8 @@ public class ExpenseServiceImpl implements ExpenseService {
 
 	@Override
 	public List<Expense> index(String username) {
-		return er.findAll();
+		List<Expense> expenseReports = er.findByUserUsername(username);
+		return expenseReports;
 	}
 
 }

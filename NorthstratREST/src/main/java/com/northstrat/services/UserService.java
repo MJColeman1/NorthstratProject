@@ -15,7 +15,7 @@ public interface UserService {
 
 	User createUser(User user);
 	
-	User updateUser(User user, int userId);
+	User updateUser(User user, String username);
 	
 	List<User> show();
 	

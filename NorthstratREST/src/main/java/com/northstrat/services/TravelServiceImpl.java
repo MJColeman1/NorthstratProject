@@ -35,16 +35,17 @@ public class TravelServiceImpl implements TravelService {
 	}
 
 	@Override
-	public Travel createTravelByLoggedInUser(Travel travel, int id) {
-		User u = ur.findById(id);
+	public Travel createTravelByLoggedInUser(Travel travel, String username) {
+		User u = ur.findByUsernameIgnoreCase(username);
 		travel.setUser(u);
+		travel.setStatus("Submitted");
 		return tr.saveAndFlush(travel);
 		
 	}
 
 	@Override
-	public Travel updateTravelByLoggedInUser(Travel travel, int travelId, int userId) {
-		User u = ur.findById(userId);
+	public Travel updateTravelByLoggedInUser(Travel travel, int travelId, String username) {
+		User u = ur.findByUsernameIgnoreCase(username);
 		Travel managed = tr.findById(travelId);
 		managed.setUser(u);
 		managed.setStatus(travel.getStatus());
@@ -56,8 +57,9 @@ public class TravelServiceImpl implements TravelService {
 	}
 
 	@Override
-	public List<Travel> show(String username) {
-		return tr.findAll();
+	public List<Travel> index(String username) {
+		List<Travel> travelReports = tr.findByUserUsername(username);
+		return travelReports;
 	}
 
 //	@Override

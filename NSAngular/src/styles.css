@@ -4,3 +4,22 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.expense {
+  text-align: center;
+}
+
+.travel {
+  text-align: center;
+}
+
+.update {
+  text-align: center;
+}
+
+#mainNav {
+position: fixed;
+left: 0;
+top: 0;
+width: 100%;
+}

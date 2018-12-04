@@ -12,6 +12,15 @@
             <a class="nav-link js-scroll-trigger" *ngIf="!authService.checkLogin()" routerLink="/register">Create Account</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" *ngIf="authService.checkLogin()" routerLink="/profile">Update Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" *ngIf="authService.checkLogin()" routerLink="/expense">Expense Report</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" *ngIf="authService.checkLogin()" routerLink="/travel">Travel Report</a>
+          </li>
+          <li class="nav-item">
               <a class="nav-link js-scroll-trigger" *ngIf="authService.checkLogin()" (click)="authService.logout()"
               routerLink="/login">Logout</a>
           </li>

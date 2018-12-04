@@ -48,8 +48,12 @@ export class UserService {
     );
   }
 
-  updateUser(id: number, user: User) {
-    return this.http.put<User>(this.url + '/user/' + id, user)
+  updateUser(user: User) {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders()
+    .set('Authorization', `Basic ${token}`);
+    console.log(token);
+    return this.http.put<User>(this.url + '/updateuser', user, { headers })
     .pipe(
       catchError((err: any) => {
         console.log(err);

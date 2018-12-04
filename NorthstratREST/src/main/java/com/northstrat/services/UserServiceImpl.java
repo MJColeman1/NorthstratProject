@@ -46,10 +46,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User updateUser(User user, int userId) {
-		User managed = ur.findById(userId);
+	public User updateUser(User user, String username) {
+		User managed = ur.findByUsernameIgnoreCase(username);
 		managed.setUsername(user.getUsername());
-		managed.setPassword(user.getPassword());
+		managed.setPassword(encoder.encode(user.getPassword()));
 		managed.setFirstName(user.getFirstName());
 		managed.setLastName(user.getLastName());
 		managed.setEmail(user.getEmail());

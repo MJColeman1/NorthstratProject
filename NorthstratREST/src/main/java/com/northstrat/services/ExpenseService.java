@@ -12,9 +12,9 @@ public interface ExpenseService {
 	
 	Expense createExpense(Expense expense);
 	
-	Expense createExpenseByLoggedInUser(Expense expense, int id);
+	Expense createExpenseByLoggedInUser(Expense expense, String username);
 	
-	Expense updateExpenseByLoggedInUser(Expense expense, int expenseId, int userId);
+	Expense updateExpenseByLoggedInUser(Expense expense, int expenseId, String username);
 	
 	List<Expense> index(String username);
 	

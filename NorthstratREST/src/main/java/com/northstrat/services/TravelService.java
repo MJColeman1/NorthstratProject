@@ -12,11 +12,11 @@ public interface TravelService {
 	
 	Travel findByStatus(String status);
 	
-	Travel createTravelByLoggedInUser(Travel travel, int id);
+	Travel createTravelByLoggedInUser(Travel travel, String username);
 	
-	Travel updateTravelByLoggedInUser(Travel travel, int travelId, int id);
+	Travel updateTravelByLoggedInUser(Travel travel, int travelId, String username);
 	
-	List<Travel> show(String username);
+	List<Travel> index(String username);
 	
 //	boolean destroyTravelByLoggedInUser(int travelId, int userId);
 

@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Expense } from '../models/expense';
+import { ExpenseService } from '../expense.service';
+import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-expense',
@@ -7,7 +11,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExpenseComponent implements OnInit {
 
-  constructor() { }
+  expense: Expense = new Expense();
+
+  createExpense(expense: Expense) {
+    return this.expenseService.createExpense(expense).subscribe(
+      data => {
+        this.expense = data;
+        this.router.navigateByUrl('user');
+      },
+      error => console.log(error + ' kaboom in create expense component'));
+  }
+
+  constructor(private expenseService: ExpenseService, private router: Router) { }
 
   ngOnInit() {
   }

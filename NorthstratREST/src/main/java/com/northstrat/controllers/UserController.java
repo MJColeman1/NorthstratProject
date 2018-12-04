@@ -46,9 +46,9 @@ public class UserController {
 		return us.createUser(user);
 	}
 	
-	@RequestMapping(path = "/user/{userId}", method = RequestMethod.PUT)
-	public User updateUser(@RequestBody User user, @PathVariable int userId) {
-		return us.updateUser(user, userId);
+	@RequestMapping(path = "/updateuser", method = RequestMethod.PUT)
+	public User updateUser(@RequestBody User user, Principal principal) {
+		return us.updateUser(user, principal.getName());
 	}
 	
 	@RequestMapping(path = "/users", method = RequestMethod.GET)
