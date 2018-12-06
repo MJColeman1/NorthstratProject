@@ -18,8 +18,15 @@ export class LoginComponent implements OnInit {
     // Subscribe to authService passing in the form username and password
     this.authService.login(user.username, user.password).subscribe(
       // On success log in and route back to posts
-      data => this.router.navigateByUrl('user'),
+      data => {
+        console.log(user);
+        if (user.username === 'admin') {
+          this.router.navigateByUrl('admin');
+        } else {
+          this.router.navigateByUrl('user');
+        }
       // If error return this instead
+      },
       err => {
         console.log(err),
         console.log(user);

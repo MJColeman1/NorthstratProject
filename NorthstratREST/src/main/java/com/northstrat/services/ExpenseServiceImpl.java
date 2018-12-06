@@ -37,6 +37,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 		e.setGlAccount(expense.getGlAccount());
 		e.setStatus(expense.getStatus());
 		e.setAmount(expense.getAmount());
+		e.setUserComments(expense.getUserComments());
 		er.saveAndFlush(e);
 		return e;
 	}
@@ -45,7 +46,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 	public Expense createExpenseByLoggedInUser(Expense expense, String username) {
 		User u = ur.findByUsernameIgnoreCase(username);
 		expense.setUser(u);
-		expense.setStatus("Submitted");
+		expense.setStatus("Submitted for Review");
 		return er.saveAndFlush(expense);
 	}
 
@@ -57,7 +58,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 		managed.setAttendees(expense.getAttendees());
 		managed.setAmount(expense.getAmount());
 		managed.setGlAccount(expense.getGlAccount());
-		managed.setStatus(expense.getStatus());
+		managed.setUserComments(expense.getUserComments());
 		managed.setUser(u);
 		return er.saveAndFlush(managed);
 	}
@@ -66,6 +67,32 @@ public class ExpenseServiceImpl implements ExpenseService {
 	public List<Expense> index(String username) {
 		List<Expense> expenseReports = er.findByUserUsername(username);
 		return expenseReports;
+	}
+	
+	@Override
+	public boolean destroyExpense(int expenseId) {
+		try {
+			er.removeUserData(expenseId);
+			er.deleteById(expenseId);
+			return true;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public List<Expense> findAllExpenses(String username) {
+		return er.findAll();
+	}
+
+	@Override
+	public Expense updateExpenseByAdmin(Expense expense, int expenseId, String username) {
+		Expense managed = er.findById(expenseId);
+		managed.setStatus(expense.getStatus());
+		managed.setAdminComments(expense.getAdminComments());
+		return er.saveAndFlush(managed);
 	}
 
 }

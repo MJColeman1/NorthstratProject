@@ -15,8 +15,6 @@ import { TravelService } from '../travel.service';
 })
 export class UserComponent implements OnInit {
 
-  greeting = 'Hello World';
-
   users = [];
 
   selected = null;
@@ -65,6 +63,7 @@ export class UserComponent implements OnInit {
     return this.travelService.index().subscribe(
       data => {
         this.travelReports = data;
+        this.selected = null;
       },
       error => console.log(error + ' kaboom in get all travel component'));
   }
@@ -91,6 +90,15 @@ export class UserComponent implements OnInit {
     this.updateExpense = null;
   }
 
+  deleteExpenseReport(id: number) {
+    this.expenseService.deleteExpense(id).subscribe(
+      data => {
+        this.reload();
+        this.selected = null;
+      },
+      error => console.log(error));
+  }
+
   updateTravelReport(travel: Travel, id: number) {
     this.travelService.updateTravel(travel, id).subscribe(
       data => {
@@ -101,10 +109,20 @@ export class UserComponent implements OnInit {
       this.updateTravel = null;
   }
 
+  deleteTravelReport(id: number) {
+    this.travelService.destroyTravelReport(id).subscribe(
+      data => {
+        this.reload();
+        this.clicked = null;
+      },
+      error => console.log(error));
+  }
+
   constructor(private userService: UserService, public authService: AuthService,
   private expenseService: ExpenseService, private router: Router, private travelService: TravelService) { }
 
   ngOnInit() {
+    console.log(btoa);
     return this.loggedInUser + this.getAllExpenses() + this.getAllTravelReports();
   }
 

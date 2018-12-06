@@ -38,7 +38,7 @@ public class TravelServiceImpl implements TravelService {
 	public Travel createTravelByLoggedInUser(Travel travel, String username) {
 		User u = ur.findByUsernameIgnoreCase(username);
 		travel.setUser(u);
-		travel.setStatus("Submitted");
+		travel.setStatus("Submitted for Review");
 		return tr.saveAndFlush(travel);
 		
 	}
@@ -48,11 +48,12 @@ public class TravelServiceImpl implements TravelService {
 		User u = ur.findByUsernameIgnoreCase(username);
 		Travel managed = tr.findById(travelId);
 		managed.setUser(u);
-		managed.setStatus(travel.getStatus());
 		managed.setProjectChargeCode(travel.getProjectChargeCode());
 		managed.setTotalCost(travel.getTotalCost());
 		managed.setTravelDates(travel.getTravelDates());
 		managed.setTripLocation(travel.getTripLocation());
+		managed.setUserComments(travel.getUserComments());
+		
 		return tr.saveAndFlush(managed);
 	}
 
@@ -62,21 +63,29 @@ public class TravelServiceImpl implements TravelService {
 		return travelReports;
 	}
 
-//	@Override
-//	public boolean destroyTravelByLoggedInUser(int travelId, int userId) {
-//		User u = ur.findById(userId);
-//		Travel t = tr.findById(travelId);
-////		t.setUser(u);
-//		t.getUser().setTravel(null);
-//		try {
-//			tr.delete(t);;
-//			return true;
-//		}
-//		catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return false;
-//	}
+	@Override
+	public boolean destroyTravel(int travelId) {
+		try {
+			tr.removeUserData(travelId);
+			tr.deleteById(travelId);
+			return true;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
+	@Override
+	public List<Travel> findAllTravel(String username) {
+		return tr.findAll();
+	}
+
+	@Override
+	public Travel updateTravelByAdmin(Travel travel, int travelId, String username) {
+		Travel managed = tr.findById(travelId);
+		managed.setStatus(travel.getStatus());
+		managed.setAdminComments(travel.getAdminComments());
+		return tr.saveAndFlush(managed);
+	}
 }

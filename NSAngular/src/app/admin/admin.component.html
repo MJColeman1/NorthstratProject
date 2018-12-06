@@ -1,0 +1,114 @@
+<p>
+    Welcome {{ loggedInUser.firstName }} <br/>
+
+    Last Name: {{ loggedInUser.lastName }} <br/>
+    {{ loggedInUser.email }} <br/>
+    {{ loggedInUser.title }} <br/>
+    {{ loggedInUser.username }} <br/>
+    </p>
+
+
+    <h4 class="expense" *ngIf="expenses">Expense Reports (Click to Show Details)</h4>
+ <table class="table table-striped" *ngIf="!selected && expenses">
+    <tr>
+      <th>Report ID</th>
+      <th>Date Submitted</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Submitted By</th>
+    </tr>
+    <tr *ngFor="let expense of expenses">
+      <td (click)="displayExpense(expense)">{{ expense.id }}</td>
+      <td (click)="displayExpense(expense)">{{ expense.createdAt | date: 'short' }}</td>
+      <td (click)="displayExpense(expense)">{{ expense.description }}</td>
+      <td (click)="displayExpense(expense)">{{ expense.status }}</td>
+      <td (click)="displayExpense(expense)">{{ expense.user.firstName + ' ' + expense.user.lastName }}</td>
+    </tr>
+  </table>
+
+   <table class="table table-striped" *ngIf="selected">
+      <tr>
+        <th>Report ID</th>
+        <th>Date Submitted</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Change Status</th>
+        <th>Attendees</th>
+        <th>Amount</th>
+        <th>GL Account</th>
+        <th>Submitted By</th>
+        <th *ngIf="selected.createdAt != selected.updatedAt">Date Updated</th>
+        <th><button type="button" class="btn btn-success" value="Return to List" (click)="displayExpenseTable()" *ngIf="selected">Return to List</button></th>
+      </tr>
+        <tr>
+            <td>{{ selected.id }}</td>
+            <td>{{ selected.createdAt | date: 'short' }}</td>
+            <td>{{ selected.description }}</td>
+            <td>{{ selected.status }}</td>
+            <td><select [(ngModel)]="selected.status">
+                <option value="Under Review">Under Review</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Approved">Approved</option>
+              </select> <br/> <br/>
+              <button type="button" class="btn btn-info btn-md" value="Return to List" (click)="updateExpenseReport(selected, selected.id)" *ngIf="selected">Change Status</button>
+            </td>
+            <td>{{ selected.attendees }}</td>
+            <td>{{ selected.amount | currency}}</td>
+            <td>{{ selected.glAccount }}</td>
+            <td>{{ selected.user.firstName + ' ' + selected.user.lastName }}</td>
+            <td *ngIf="selected.createdAt !== selected.updatedAt">{{ selected.updatedAt  | date: 'short' }}</td>
+        </table>
+
+        <br/>
+        <h4 class="travel">Travel Reports (Click to Show Details)</h4>
+        <table class="table table-striped" *ngIf="!clicked">
+            <tr>
+              <th>Report ID</th>
+              <th>Date Submitted</th>
+              <th>Trip Location</th>
+              <th>Status</th>
+              <th>Submitted By</th>
+            </tr>
+            <tr *ngFor="let travel of travelReports">
+              <td (click)="displayTravelReport(travel)">{{ travel.id }}</td>
+              <td (click)="displayTravelReport(travel)">{{ travel.createdAt | date: 'short' }}</td>
+              <td (click)="displayTravelReport(travel)">{{ travel.tripLocation }}</td>
+              <td (click)="displayTravelReport(travel)">{{ travel.status }}</td>
+              <td (click)="displayTravelReport(travel)">{{ travel.user.firstName + ' ' + travel.user.lastName }}</td>
+            </tr>
+          </table>
+
+          <table class="table table-striped" *ngIf="clicked">
+              <tr>
+                <th>Report ID</th>
+                <th>Date Submitted</th>
+                <th>Trip Location</th>
+                <th>Status</th>
+                <th>Change Status</th>
+                <th>Travel Dates</th>
+                <th>Project Charge Code</th>
+                <th>Total Cost</th>
+                <th>Submitted By</th>
+                <th *ngIf="clicked.createdAt !== clicked.updatedAt">Date Updated</th>
+                <th><button type="button" class="btn btn-success" value="Return to List" (click)="displayTravelTable()" *ngIf="clicked">Return to List</button></th>
+              </tr>
+                <tr>
+                    <td>{{ clicked.id }}</td>
+                    <td>{{ clicked.createdAt | date: 'short' }}</td>
+                    <td>{{ clicked.tripLocation }}</td>
+                    <td>{{ clicked.status }}</td>
+                    <td>
+                      <select [(ngModel)]="clicked.status">
+                        <option value="Under Review">Under Review</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Approved">Approved</option>
+                      </select> <br/> <br/>
+                      <button type="button" class="btn btn-info" value="Return to List" (click)="updateTravelReport(clicked, clicked.id)" *ngIf="clicked">Change Status</button>
+                    </td>
+                    <td>{{ clicked.travelDates }}</td>
+                    <td>{{ clicked.projectChargeCode }}</td>
+                    <td>{{ clicked.totalCost | currency }}</td>
+                    <td>{{ clicked.user.firstName + ' ' + clicked.user.lastName }}</td>
+                    <td *ngIf="clicked.createdAt !== clicked.updatedAt">{{ clicked.updatedAt | date: 'short' }}</td>
+                  </tr>
+                </table>

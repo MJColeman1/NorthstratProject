@@ -17,6 +17,8 @@ public interface UserService {
 	
 	User updateUser(User user, String username);
 	
+	User updatePassword(User user, String username);
+	
 	List<User> show();
 	
 	public User authenticateUser(User user) throws NoResultException;

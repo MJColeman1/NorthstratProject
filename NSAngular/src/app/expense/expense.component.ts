@@ -13,6 +13,8 @@ export class ExpenseComponent implements OnInit {
 
   expense: Expense = new Expense();
 
+  loggedInUser = this.userService.getUser().subscribe(data => this.loggedInUser = data);
+
   createExpense(expense: Expense) {
     return this.expenseService.createExpense(expense).subscribe(
       data => {
@@ -22,7 +24,7 @@ export class ExpenseComponent implements OnInit {
       error => console.log(error + ' kaboom in create expense component'));
   }
 
-  constructor(private expenseService: ExpenseService, private router: Router) { }
+  constructor(private expenseService: ExpenseService, private router: Router, private userService: UserService) { }
 
   ngOnInit() {
   }

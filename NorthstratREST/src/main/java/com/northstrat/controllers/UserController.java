@@ -51,6 +51,11 @@ public class UserController {
 		return us.updateUser(user, principal.getName());
 	}
 	
+	@RequestMapping(path = "/updatepassword", method = RequestMethod.PUT)
+	public User updatePassword(@RequestBody User user, Principal principal) {
+		return us.updatePassword(user, principal.getName());
+	}
+	
 	@RequestMapping(path = "/users", method = RequestMethod.GET)
 	public List<User> show()  {
 		return us.show();

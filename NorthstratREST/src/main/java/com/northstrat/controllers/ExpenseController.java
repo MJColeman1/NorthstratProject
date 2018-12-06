@@ -71,5 +71,21 @@ public class ExpenseController {
 	public List<Expense> index(Principal principal) {
 		return es.index(principal.getName());
 	}
+	
+	@RequestMapping(path = "/destroyexpense/{expenseId}", method = RequestMethod.DELETE)
+	public boolean destroyExpenseReport(@PathVariable int expenseId) {
+		return es.destroyExpense(expenseId);
+	}
+	
+	@RequestMapping(path = "/allexpenses", method = RequestMethod.GET)
+	public List<Expense> getAllExpenses(Principal principal) {
+		return es.findAllExpenses(principal.getName());
+	}
+	
+	@RequestMapping(path = "/adminexpenseupdate/{expenseId}", method = RequestMethod.PUT)
+	public Expense updateExpenseByAdmin(@RequestBody Expense expense, 
+			@PathVariable int expenseId, Principal principal) {
+		return es.updateExpenseByAdmin(expense, expenseId, principal.getName());
+	}
 
 }

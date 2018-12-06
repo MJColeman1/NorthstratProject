@@ -17,15 +17,18 @@ import { AuthService } from './auth.service';
 import { RegisterComponent } from './register/register.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AdminComponent } from './admin/admin.component';
+import { AuthGuardService } from './auth-guard.service';
 
 const routes: Routes = [
 { path: '', pathMatch: 'full', redirectTo: 'login'},
-{ path: 'user', component: UserComponent },
+{ path: 'user', canActivate: [AuthGuardService], component: UserComponent },
 { path: 'login', component: LoginComponent },
 { path: 'register', component: RegisterComponent },
-{ path: 'expense', component: ExpenseComponent},
-{ path: 'travel', component: TravelComponent},
-{ path: 'profile', component: ProfileComponent},
+{ path: 'expense', canActivate: [AuthGuardService], component: ExpenseComponent},
+{ path: 'travel', canActivate: [AuthGuardService], component: TravelComponent},
+{ path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent},
+{ path: 'admin', canActivate: [AuthGuardService], component: AdminComponent},
 { path: '**', component: NotFoundComponent}
 ];
 
@@ -40,7 +43,8 @@ const routes: Routes = [
     NotFoundComponent,
     RegisterComponent,
     NavigationComponent,
-    ProfileComponent
+    ProfileComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,7 @@ const routes: Routes = [
     [RouterModule.forRoot(routes)]
   ],
   exports: [RouterModule],
-  providers: [UserService, ExpenseService, TravelService, AuthService],
+  providers: [UserService, ExpenseService, TravelService, AuthService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

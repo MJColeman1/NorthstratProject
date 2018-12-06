@@ -41,6 +41,8 @@ class ExpenseTest {
 		assertEquals("111000", expense.getGlAccount());
 		assertEquals("Submitted", expense.getStatus());
 		assertEquals(1, expense.getUser().getId());
+		assertEquals("test", expense.getUserComments());
+		assertEquals("test", expense.getAdminComments());
 	}
 
 }

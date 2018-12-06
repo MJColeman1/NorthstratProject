@@ -43,6 +43,8 @@ class TravelTest {
 		assertEquals("Submitted", travel.getStatus());
 		assertEquals(2000, travel.getTotalCost(), 1);
 		assertEquals(1, travel.getUser().getId());
+		assertEquals("test", travel.getAdminComments());
+		assertEquals("test", travel.getUserComments());
 	}
 
 }

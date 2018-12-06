@@ -18,6 +18,10 @@ public interface TravelService {
 	
 	List<Travel> index(String username);
 	
-//	boolean destroyTravelByLoggedInUser(int travelId, int userId);
+	List<Travel> findAllTravel(String username);
+	
+	boolean destroyTravel(int travelId);
+	
+	Travel updateTravelByAdmin(Travel travel, int travelId, String username);
 
 }

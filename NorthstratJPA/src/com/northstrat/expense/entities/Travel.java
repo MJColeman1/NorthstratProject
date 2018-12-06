@@ -54,6 +54,12 @@ public class Travel {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
+	@Column (name = "user_comments")
+	private String userComments;
+	
+	@Column (name = "admin_comments")
+	private String adminComments;
+	
 	//end of fields
 	
 	//start of constructors
@@ -63,7 +69,7 @@ public class Travel {
 	}
 
 	public Travel(int id, String projectChargeCode, String tripLocation, String travelDates, Date createdAt,
-			Date updatedAt, String status, double totalCost, User user) {
+			Date updatedAt, String status, double totalCost, User user, String userComments, String adminComments) {
 		super();
 		this.id = id;
 		this.projectChargeCode = projectChargeCode;
@@ -74,10 +80,12 @@ public class Travel {
 		this.status = status;
 		this.totalCost = totalCost;
 		this.user = user;
+		this.userComments = userComments;
+		this.adminComments = adminComments;
 	}
-
-	//end of constructors
 	
+	//end of constructors
+
 	public String getProjectChargeCode() {
 		return projectChargeCode;
 	}
@@ -142,6 +150,22 @@ public class Travel {
 		this.user = user;
 	}
 
+	public String getUserComments() {
+		return userComments;
+	}
+
+	public void setUserComments(String userComments) {
+		this.userComments = userComments;
+	}
+
+	public String getAdminComments() {
+		return adminComments;
+	}
+
+	public void setAdminComments(String adminComments) {
+		this.adminComments = adminComments;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -150,13 +174,15 @@ public class Travel {
 	public String toString() {
 		return "Travel [id=" + id + ", projectChargeCode=" + projectChargeCode + ", tripLocation=" + tripLocation
 				+ ", travelDates=" + travelDates + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", status="
-				+ status + ", totalCost=" + totalCost + ", user=" + user + "]";
+				+ status + ", totalCost=" + totalCost + ", user=" + user + ", userComments=" + userComments
+				+ ", adminComments=" + adminComments + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((adminComments == null) ? 0 : adminComments.hashCode());
 		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((projectChargeCode == null) ? 0 : projectChargeCode.hashCode());
@@ -168,6 +194,7 @@ public class Travel {
 		result = prime * result + ((tripLocation == null) ? 0 : tripLocation.hashCode());
 		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + ((userComments == null) ? 0 : userComments.hashCode());
 		return result;
 	}
 
@@ -180,6 +207,11 @@ public class Travel {
 		if (getClass() != obj.getClass())
 			return false;
 		Travel other = (Travel) obj;
+		if (adminComments == null) {
+			if (other.adminComments != null)
+				return false;
+		} else if (!adminComments.equals(other.adminComments))
+			return false;
 		if (createdAt == null) {
 			if (other.createdAt != null)
 				return false;
@@ -219,8 +251,12 @@ public class Travel {
 				return false;
 		} else if (!user.equals(other.user))
 			return false;
+		if (userComments == null) {
+			if (other.userComments != null)
+				return false;
+		} else if (!userComments.equals(other.userComments))
+			return false;
 		return true;
 	}
-	
 	
 }

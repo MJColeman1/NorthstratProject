@@ -8,14 +8,15 @@
             <div class="alert alert-danger" *ngIf="username.touched && !username.valid">Username must contain minimum 3 characters.</div>
 
           <label class="sr-only" for="password">Password:</label>
-            <input type="text" required minlength="8" name="password" #password="ngModel" class="form-control mb-2 mr-sm-2"
+            <input type="password" required minlength="8" name="password" #password="ngModel" class="form-control mb-2 mr-sm-2"
             id="password" [(ngModel)]="user.password" placeholder="Password"/>
             <div class="alert alert-danger" *ngIf="password.touched && !password.valid">Password must contain minimum 8 characters.</div>
 
           <label class="sr-only" for="confirmPassword">Retype Password:</label>
-            <input type="text" required minlength="8" name="confirmPassword" ngModel #confirmPassword="ngModel" class="form-control mb-2 mr-sm-2"
+            <input type="password" #password2="ngModel" required minlength="8" name="confirmPassword" [(ngModel)]="confirmPassword" class="form-control mb-2 mr-sm-2"
             id="confirmPassword" placeholder="Confirm Password" />
-          <div class="alert alert-danger" *ngIf="confirmPassword.touched && !password.valid || password !== confirmPassword">Password fields must match.</div>
+          <div class="alert alert-danger" *ngIf="password2.touched && user.password !== confirmPassword">Password fields must match.</div>
+          <div class="alert alert-danger" *ngIf="password2.touched && !password2.valid">Password must contain minimum 8 characters.</div>
 
           <label class="sr-only" for="firstName">First Name:</label>
             <input type="text" required minlength="2" name="firstName" #firstName="ngModel" class="form-control mb-2 mr-sm-2"
@@ -33,7 +34,7 @@
           <div class="alert alert-danger" *ngIf="email.touched && !email.valid">Email must contain minimum 7 characters.</div>
 
           <label class="sr-only" for="title">Title:</label>
-            <input type="text" required minlength="3" name="title" #title="ngModel" class="form-control mb-2 mr-sm-2" id="title" [(ngModel)]="user.title" placeholder="Software Engineer"/>
+            <input type="text" required minlength="3" name="title" #title="ngModel" class="form-control mb-2 mr-sm-2" id="title" [(ngModel)]="user.title" placeholder="Title"/>
             <div class="alert alert-danger" *ngIf="title.touched && !title.valid">Title must contain minimum 3 characters.</div>
 
           <div class="text-center">

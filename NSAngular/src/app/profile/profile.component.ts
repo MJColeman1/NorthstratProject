@@ -11,6 +11,8 @@ import { AuthService } from '../auth.service';
 })
 export class ProfileComponent implements OnInit {
 
+  confirmPassword = '';
+
   constructor(private userService: UserService, private router: Router, private authService: AuthService) { }
 
   loggedInUser = this.userService.getUser().subscribe(data => this.loggedInUser = data);
@@ -18,16 +20,18 @@ export class ProfileComponent implements OnInit {
   updateUser(user: User) {
     return this.userService.updateUser(user).subscribe(
       data => {
+        this.router.navigateByUrl('user');
       },
       error => console.log(error + ' Kaboom in update user profile component'));
   }
 
   loginAfterUpdate(user) {
-    this.updateUser(user);
-    // Subscribe to authService passing in the form username and password
-    // On success log in and route back to posts
-    // If error return this instead
-    this.authService.login(user.username, user.password), this.router.navigateByUrl('login');
+    this.userService.updateUsernameAndPassword(user).subscribe(
+      data => {
+        this.authService.logout();
+        this.router.navigateByUrl('login');
+      },
+      error => console.log(error + ' kaboom in update password profile component'));
   }
 
   ngOnInit() {

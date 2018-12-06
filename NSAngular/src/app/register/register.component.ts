@@ -13,6 +13,8 @@ export class RegisterComponent implements OnInit {
 
   user: User = new User();
 
+  confirmPassword = '';
+
   register(user) {
     return this.authService.register(user).subscribe(
       data => this.authService.login(user.username, user.password).subscribe(

@@ -53,5 +53,19 @@ updateExpense(expense: Expense, id: number) {
   );
 }
 
+deleteExpense(id: number) {
+  const token = this.authService.getToken();
+  const headers = new HttpHeaders()
+  .set('Authorization', `Basic ${token}`);
+  console.log(token);
+  return this.http.delete(this.url + '/destroyexpense/' + id, { headers })
+  .pipe(
+    catchError((err: any) => {
+      console.log(err);
+      return throwError('Kaboom in delete expense service');
+    })
+  );
+}
+
   constructor(private http: HttpClient, private authService: AuthService) { }
 }

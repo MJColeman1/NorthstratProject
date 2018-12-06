@@ -17,9 +17,6 @@ public class AuthServiceImpl implements AuthService {
 	@Autowired
 	private PasswordEncoder encoder;
 	
-	@Autowired
-	private UserRepository userRepo;
-	
 	@Override
 	public User register(String json) {
 		ObjectMapper om = new ObjectMapper();

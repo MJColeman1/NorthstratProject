@@ -48,14 +48,19 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User updateUser(User user, String username) {
 		User managed = ur.findByUsernameIgnoreCase(username);
-		managed.setUsername(user.getUsername());
-		managed.setPassword(encoder.encode(user.getPassword()));
 		managed.setFirstName(user.getFirstName());
 		managed.setLastName(user.getLastName());
 		managed.setEmail(user.getEmail());
 		managed.setTitle(user.getTitle());
 		return ur.saveAndFlush(managed);
 		
+	}
+	
+	public User updatePassword(User user, String username) {
+		User managed = ur.findByUsernameIgnoreCase(username);
+		managed.setUsername(user.getUsername());
+		managed.setPassword(encoder.encode(user.getPassword()));
+		return ur.saveAndFlush(managed);
 	}
 
 	@Override

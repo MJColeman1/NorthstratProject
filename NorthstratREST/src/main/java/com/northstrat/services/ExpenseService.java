@@ -18,4 +18,10 @@ public interface ExpenseService {
 	
 	List<Expense> index(String username);
 	
+	List<Expense> findAllExpenses(String username);
+	
+	boolean destroyExpense(int id);
+	
+	Expense updateExpenseByAdmin(Expense expense, int expenseId, String username);
+	
 }

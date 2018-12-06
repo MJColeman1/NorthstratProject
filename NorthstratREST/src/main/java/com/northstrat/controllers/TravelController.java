@@ -55,7 +55,7 @@ public class TravelController {
 		return null;
 	}
 
-	@RequestMapping(path = "travel/{travelId}", method = RequestMethod.PUT)
+	@RequestMapping(path = "/travel/{travelId}", method = RequestMethod.PUT)
 	public Travel updateTravel(@RequestBody Travel travel, @PathVariable int travelId, 
 			Principal principal, HttpServletResponse res) {
 		User u = us.findByUsername(principal.getName());
@@ -67,13 +67,24 @@ public class TravelController {
 		return null;
 	}
 	
-//	@RequestMapping(path = "/user/{userId}/travel/{travelId}", method = RequestMethod.DELETE)
-//	public Boolean delete(@PathVariable int userId, @PathVariable int travelId) {
-//		return ts.destroyTravelByLoggedInUser(travelId, userId);
-//	}
-	
 	@RequestMapping(path = "/travel", method = RequestMethod.GET)
 	public List<Travel> index(Principal principal, HttpServletResponse res) {
 			return ts.index(principal.getName());
 		}
+	
+	@RequestMapping(path = "/destroytravel/{travelId}", method = RequestMethod.DELETE)
+	public boolean destroyTravel(@PathVariable int travelId) {
+		return ts.destroyTravel(travelId);
+	}
+	
+	@RequestMapping(path = "/alltravel", method = RequestMethod.GET)
+	public List<Travel> getAllTravel(Principal principal) {
+		return ts.findAllTravel(principal.getName());
+	}
+	
+	@RequestMapping(path = "/admintravelupdate/{travelId}", method = RequestMethod.PUT)
+	public Travel updateTravelByAdmin(@RequestBody Travel travel, 
+			@PathVariable int travelId, Principal principal) {
+		return ts.updateTravelByAdmin(travel, travelId, principal.getName());
+	}
 }

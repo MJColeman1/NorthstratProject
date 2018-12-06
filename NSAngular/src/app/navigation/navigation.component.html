@@ -3,7 +3,10 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" *ngIf="authService.checkLogin()" routerLink="/user">Home</a>
+            <a class="nav-link js-scroll-trigger" *ngIf="getLoggedInUser() === 'admin' && authService.checkLogin()" routerLink="/admin">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" *ngIf="authService.checkLogin() && getLoggedInUser() !== 'admin'" routerLink="/user">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" *ngIf="!authService.checkLogin()" routerLink="/login">Home</a>
@@ -15,10 +18,10 @@
             <a class="nav-link js-scroll-trigger" *ngIf="authService.checkLogin()" routerLink="/profile">Update Profile</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" *ngIf="authService.checkLogin()" routerLink="/expense">Expense Report</a>
+            <a class="nav-link js-scroll-trigger" *ngIf="authService.checkLogin() && getLoggedInUser() !== 'admin'" routerLink="/expense">Expense Report</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" *ngIf="authService.checkLogin()" routerLink="/travel">Travel Report</a>
+            <a class="nav-link js-scroll-trigger" *ngIf="authService.checkLogin() && getLoggedInUser() !== 'admin'" routerLink="/travel">Travel Report</a>
           </li>
           <li class="nav-item">
               <a class="nav-link js-scroll-trigger" *ngIf="authService.checkLogin()" (click)="authService.logout()"

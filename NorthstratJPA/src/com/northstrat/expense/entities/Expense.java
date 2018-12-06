@@ -51,6 +51,12 @@ public class Expense {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
+	@Column (name = "user_comments")
+	private String userComments;
+	
+	@Column (name = "admin_comments")
+	private String adminComments;
+	
 	//end of fields
 	
 	//start of constructors
@@ -60,7 +66,7 @@ public class Expense {
 	}
 
 	public Expense(int id, String description, String attendees, double amount, String glAccount, Date createdAt,
-			Date updatedAt, String status, User user) {
+			Date updatedAt, String status, User user, String userComments, String adminComments) {
 		super();
 		this.id = id;
 		this.description = description;
@@ -71,6 +77,8 @@ public class Expense {
 		this.updatedAt = updatedAt;
 		this.status = status;
 		this.user = user;
+		this.userComments = userComments;
+		this.adminComments = adminComments;
 	}
 	
 	//end of constructors
@@ -139,6 +147,22 @@ public class Expense {
 		this.user = user;
 	}
 
+	public String getUserComments() {
+		return userComments;
+	}
+
+	public void setUserComments(String userComments) {
+		this.userComments = userComments;
+	}
+
+	public String getAdminComments() {
+		return adminComments;
+	}
+
+	public void setAdminComments(String adminComments) {
+		this.adminComments = adminComments;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -147,13 +171,15 @@ public class Expense {
 	public String toString() {
 		return "Expense [id=" + id + ", description=" + description + ", attendees=" + attendees + ", amount=" + amount
 				+ ", glAccount=" + glAccount + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", status="
-				+ status + ", user=" + user + "]";
+				+ status + ", user=" + user + ", userComments=" + userComments + ", adminComments=" + adminComments
+				+ "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((adminComments == null) ? 0 : adminComments.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(amount);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -165,6 +191,7 @@ public class Expense {
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + ((userComments == null) ? 0 : userComments.hashCode());
 		return result;
 	}
 
@@ -177,6 +204,11 @@ public class Expense {
 		if (getClass() != obj.getClass())
 			return false;
 		Expense other = (Expense) obj;
+		if (adminComments == null) {
+			if (other.adminComments != null)
+				return false;
+		} else if (!adminComments.equals(other.adminComments))
+			return false;
 		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
 			return false;
 		if (attendees == null) {
@@ -216,9 +248,12 @@ public class Expense {
 				return false;
 		} else if (!user.equals(other.user))
 			return false;
+		if (userComments == null) {
+			if (other.userComments != null)
+				return false;
+		} else if (!userComments.equals(other.userComments))
+			return false;
 		return true;
 	}
-	
-	
-	
+
 }

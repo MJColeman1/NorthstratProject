@@ -11,11 +11,13 @@
  <h4 class="expense" *ngIf="expenses">Expense Reports (Click to Show Details)</h4>
  <table class="table table-striped" *ngIf="!selected && expenses">
     <tr>
+      <th>Report ID</th>
       <th>Date Submitted</th>
       <th>Description</th>
       <th>Status</th>
     </tr>
     <tr *ngFor="let expense of expenses">
+      <td (click)="displayExpense(expense)">{{ expense.id }}</td>
       <td (click)="displayExpense(expense)">{{ expense.createdAt | date: 'short' }}</td>
       <td (click)="displayExpense(expense)">{{ expense.description }}</td>
       <td (click)="displayExpense(expense)">{{ expense.status }}</td>
@@ -24,6 +26,7 @@
 
    <table class="table table-striped" *ngIf="selected">
       <tr>
+        <th>Report ID</th>
         <th>Date Submitted</th>
         <th>Description</th>
         <th>Status</th>
@@ -34,6 +37,7 @@
         <th><button type="button" class="btn btn-success" value="Return to List" (click)="displayExpenseTable()" *ngIf="selected">Return to List</button></th>
       </tr>
         <tr>
+            <td>{{ selected.id }}</td>
             <td>{{ selected.createdAt | date: 'short' }}</td>
             <td>{{ selected.description }}</td>
             <td>{{ selected.status }}</td>
@@ -42,7 +46,7 @@
             <td>{{ selected.glAccount }}</td>
             <td *ngIf="selected.createdAt !== selected.updatedAt">{{ selected.updatedAt  | date: 'short' }}</td>
             <td><button type="button" class="btn btn-warning" value="Return to List" [disabled]="selected.status === 'Under Review'" (click)="setEditExpense()" *ngIf="selected">Edit Report</button> </td>
-          </tr>
+            <td><button type="button" class="btn btn-danger" value="Delete" (click)="deleteExpenseReport(selected.id)">X</button></td> </tr>
         </table>
 
         <h4 class="update" *ngIf="updateExpense">&nbsp;&nbsp;Update Expense Report</h4>
@@ -50,18 +54,23 @@
             <div class="row">
               <div class="col-lg-12 col-md-12">
                   <form #f="ngForm" role="form" *ngIf="updateExpense">
-                    <label class="sr-only" for="description">Description:</label>
-                      <input type="text" class="form-control mb-2 mr-sm-2" id="description" name="description" [(ngModel)]="updateExpense.description" placeholder="Description:">
+                    <label class="" for="description">Description:</label>
+                      <input type="text" required minlength="3" class="form-control mb-2 mr-sm-2" id="description" name="description" ngModel #description="ngModel" [(ngModel)]="updateExpense.description" placeholder="Description:">
+                      <div class="alert alert-danger" *ngIf="description.touched && !description.valid">Description must contain minimum 3 characters.</div>
 
-                    <label class="sr-only" for="attendees">Attendees:</label>
-                        <input type="text" class="form-control mb-2 mr-sm-2" id="attendees" name="attendees" [(ngModel)]="updateExpense.attendees" placeholder="Attendees:">
+                    <label class="" for="attendees">Attendees:</label>
+                        <input type="text" required minlength="3" class="form-control mb-2 mr-sm-2" id="attendees" name="attendees" ngModel #attendees="ngModel" [(ngModel)]="updateExpense.attendees" placeholder="Attendees:">
+                        <div class="alert alert-danger" *ngIf="attendees.touched && !attendees.valid">Attendees must contain minimum 3 characters.</div>
 
-                    <label class="sr-only" for="amount">Amount</label>
-                      <input type="text" class="form-control mb-2 mr-sm-2" id="amount" name="amount" [(ngModel)]="updateExpense.amount" placeholder="Amount:">
+                    <label class="" for="amount">Amount</label>
+                      <input type="text" required pattern="^[0-9]*\.[0-9][0-9]$" class="form-control mb-2 mr-sm-2" id="amount" name="amount" ngModel #amount="ngModel" [(ngModel)]="updateExpense.amount" placeholder="Amount:">
+                      <div class="alert alert-danger" *ngIf="amount.touched && !amount.valid">Amount must be formatted as a decimal number (e.g. 456.78)</div>
 
-                      <label class="sr-only" for="glAccount">GL Account:</label>
-                        <input type="text" class="form-control mb-2 mr-sm-2" id="glAccount" name="glAccount" [(ngModel)]="updateExpense.glAccount" placeholder="GL Account:">
-                    <div class="text-center">
+                      <label class="" for="glAccount">GL Account:</label>
+                        <input type="text" required minlength="3" class="form-control mb-2 mr-sm-2" id="glAccount" name="glAccount" ngModel #glAccount="ngModel" [(ngModel)]="updateExpense.glAccount" placeholder="GL Account:">
+                        <div class="alert alert-danger" *ngIf="glAccount.touched && !glAccount.valid">GL Account must contain minimum 3 characters.</div>
+
+                        <div class="text-center">
                       <button type="submit" class="btn btn-warning" value="Cancel" (click)="updateExpense = null">Cancel</button> &nbsp;
                       <button type="submit" class="btn btn-success" value="Update" (click)="updateExpenseReport(updateExpense, updateExpense.id)">Update</button>
                     </div>
@@ -75,11 +84,13 @@
         <h4 class="travel">Travel Reports (Click to Show Details)</h4>
         <table class="table table-striped" *ngIf="!clicked">
             <tr>
+              <th>Report ID</th>
               <th>Date Submitted</th>
               <th>Trip Location</th>
               <th>Status</th>
             </tr>
             <tr *ngFor="let travel of travelReports">
+              <td (click)="displayTravelReport(travel)">{{ travel.id }}</td>
               <td (click)="displayTravelReport(travel)">{{ travel.createdAt | date: 'short' }}</td>
               <td (click)="displayTravelReport(travel)">{{ travel.tripLocation }}</td>
               <td (click)="displayTravelReport(travel)">{{ travel.status }}</td>
@@ -88,6 +99,7 @@
 
           <table class="table table-striped" *ngIf="clicked">
               <tr>
+                <th>Report ID</th>
                 <th>Date Submitted</th>
                 <th>Trip Location</th>
                 <th>Status</th>
@@ -98,6 +110,7 @@
                 <th><button type="button" class="btn btn-success" value="Return to List" (click)="displayTravelTable()" *ngIf="clicked">Return to List</button></th>
               </tr>
                 <tr>
+                    <td>{{ clicked.id }}</td>
                     <td>{{ clicked.createdAt | date: 'short' }}</td>
                     <td>{{ clicked.tripLocation }}</td>
                     <td>{{ clicked.status }}</td>
@@ -106,29 +119,35 @@
                     <td>{{ clicked.totalCost | currency }}</td>
                     <td *ngIf="clicked.createdAt !== clicked.updatedAt">{{ clicked.updatedAt | date: 'short' }}</td>
                     <td><button type="button" class="btn btn-warning" value="Return to List" (click)="setEditTravel()" *ngIf="clicked">Edit Report</button> </td>
+                    <td><button type="button" class="btn btn-danger" value="Delete" (click)="deleteTravelReport(clicked.id)">X</button></td>
                   </tr>
                 </table>
 
-                <h4 class="update" *ngIf="updateTravel">&nbsp;&nbsp;&nbsp;&nbsp;Update Travel Report</h4>
+                <!-- <h4 class="update" *ngIf="updateTravel">&nbsp;&nbsp;&nbsp;&nbsp;</h4> -->
         <div class="d-flex justify-content-center align-items-center container">
             <div class="row">
               <div class="col-lg-12 col-md-12">
-                  <form #f="ngForm" role="form" *ngIf="updateTravel">
-                    <label class="sr-only" for="tripLocation">Trip Location:</label>
-                      <input type="text" class="form-control mb-2 mr-sm-2" id="tripLocation" name="tripLocation" [(ngModel)]="updateTravel.tripLocation" placeholder="Trip Location:">
+                  <form #travelForm="ngForm" role="form" *ngIf="updateTravel">
+                    <label class="" for="tripLocation">Trip Location:</label>
+                      <input type="text" required minlength="3" class="form-control mb-2 mr-sm-2" ngModel #tripLocation="ngModel" id="tripLocation" name="tripLocation" [(ngModel)]="updateTravel.tripLocation" placeholder="Trip Location:">
+                      <div class="alert alert-danger" *ngIf="tripLocation.touched && !tripLocation.valid">Trip Location must contain minimum 3 characters.</div>
 
-                    <label class="sr-only" for="travelDates">Travel Dates:</label>
-                        <input type="text" class="form-control mb-2 mr-sm-2" id="travelDates" name="travelDates" [(ngModel)]="updateTravel.travelDates" placeholder="Travel Dates:">
+                    <label class="" for="travelDates">Travel Dates:</label>
+                        <input type="text" required minlength="3" class="form-control mb-2 mr-sm-2" ngModel #travelDates="ngModel" id="travelDates" name="travelDates" [(ngModel)]="updateTravel.travelDates" placeholder="Travel Dates:">
+                        <div class="alert alert-danger" *ngIf="travelDates.touched && !travelDates.valid">Travel Dates must contain minimum 3 characters.</div>
 
-                    <label class="sr-only" for="projectChargeCode">Project Charge Code:</label>
-                      <input type="text" class="form-control mb-2 mr-sm-2" id="projectChargeCode" name="projectChargeCode" [(ngModel)]="updateTravel.projectChargeCode"
+                        <label class="" for="projectChargeCode">Project Charge Code:</label>
+                      <input type="text" required minlength="2" class="form-control mb-2 mr-sm-2" ngModel #projectChargeCode="ngModel" id="projectChargeCode" name="projectChargeCode" [(ngModel)]="updateTravel.projectChargeCode"
                       placeholder="Project Charge Code:">
+                      <div class="alert alert-danger" *ngIf="projectChargeCode.touched && !projectChargeCode.valid">Project Charge Code must contain minimum 3 characters.</div>
 
-                      <label class="sr-only" for="totalCost">Total Cost:</label>
-                        <input type="text" class="form-control mb-2 mr-sm-2" id="totalCost" name="totalCost" [(ngModel)]="updateTravel.totalCost" placeholder="Total Cost:">
-                    <div class="text-center">
+                      <label class="" for="totalCost">Total Cost:</label>
+                        <input type="number" required pattern="^[0-9]*\.[0-9][0-9]$" class="form-control mb-2 mr-sm-2" ngModel #totalCost="ngModel" id="totalCost" name="totalCost" [(ngModel)]="updateTravel.totalCost" placeholder="Total Cost:">
+                        <div class="alert alert-danger" *ngIf="totalCost.touched && !totalCost.valid">Total Cost must be formatted as a decimal number (e.g. 456.78)</div>
+
+                        <div class="text-center">
                       <button type="submit" class="btn btn-warning" value="Cancel" (click)="updateTravel = null">Cancel</button> &nbsp;
-                      <button type="submit" class="btn btn-success" value="Update" (click)="updateTravelReport(updateTravel, updateTravel.id)">Update</button>
+                      <button type="submit" class="btn btn-success" value="Update" [disabled]="!travelForm.valid" (click)="updateTravelReport(updateTravel, updateTravel.id)">Update</button>
                     </div>
                 </form>
                 </div>

@@ -50,6 +50,8 @@ CREATE TABLE IF NOT EXISTS `expense` (
   `updated_at` TIMESTAMP NULL,
   `status` VARCHAR(45) NULL,
   `user_id` INT NULL,
+  `user_comments` VARCHAR(500) NULL,
+  `admin_comments` VARCHAR(500) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_user_id_idx` (`user_id` ASC),
   CONSTRAINT `fk_user_id`
@@ -75,6 +77,8 @@ CREATE TABLE IF NOT EXISTS `travel` (
   `status` VARCHAR(45) NULL,
   `total_cost` DOUBLE NULL,
   `user_id` INT NULL,
+  `user_comments` VARCHAR(500) NULL,
+  `admin_comments` VARCHAR(500) NULL,
   PRIMARY KEY (`id`),
   INDEX `user_id_idx` (`user_id` ASC),
   CONSTRAINT `user_id`
@@ -101,7 +105,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `nsdb`;
-INSERT INTO `user` (`id`, `username`, `password`, `admin`, `first_name`, `last_name`, `email`, `title`, `role`, `enabled`) VALUES (1, 'Coleman', 'password', 1, 'Mark', 'Coleman', 'Mark.Coleman@northstrat.com', 'Software Engineer', 'admin', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `admin`, `first_name`, `last_name`, `email`, `title`, `role`, `enabled`) VALUES (1, 'Mark', 'password', 0, 'Mark', 'Coleman', 'Mark.Coleman@northstrat.com', 'Software Engineer', 'admin', 1);
 
 COMMIT;
 
@@ -111,7 +115,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `nsdb`;
-INSERT INTO `expense` (`id`, `description`, `attendees`, `amount`, `gl_account`, `created_at`, `updated_at`, `status`, `user_id`) VALUES (1, 'test', 'testing', 100, '111000', NULL, NULL, 'Submitted', 1);
+INSERT INTO `expense` (`id`, `description`, `attendees`, `amount`, `gl_account`, `created_at`, `updated_at`, `status`, `user_id`, `user_comments`, `admin_comments`) VALUES (1, 'test', 'testing', 100, '111000', NULL, NULL, 'Submitted', 1, NULL, NULL);
 
 COMMIT;
 
@@ -121,6 +125,6 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `nsdb`;
-INSERT INTO `travel` (`id`, `project_charge_code`, `trip_location`, `travel_dates`, `created_at`, `updated_at`, `status`, `total_cost`, `user_id`) VALUES (1, '1', 'Hawaii', '8/12/18-8/18/18', NULL, NULL, 'Submitted', 2000.00, 1);
+INSERT INTO `travel` (`id`, `project_charge_code`, `trip_location`, `travel_dates`, `created_at`, `updated_at`, `status`, `total_cost`, `user_id`, `user_comments`, `admin_comments`) VALUES (1, '1', 'Hawaii', '8/12/18-8/18/18', NULL, NULL, 'Submitted', 2000.00, 1, NULL, NULL);
 
 COMMIT;

@@ -2,45 +2,63 @@
     <div class="row">
       <div class="col-lg-12 col-md-12">
           <form #f="ngForm" role="form">
-            <label class="sr-only" for="username">Username:</label>
-              <input type="text" required minlength="3" name="username" #username="ngModel" class="form-control mb-2 mr-sm-2"
-              id="username" [(ngModel)]="loggedInUser.username" placeholder="Username"/>
-              <div class="alert alert-danger" *ngIf="username.touched && !username.valid">Username must contain minimum 3 characters.</div>
-
-            <label class="sr-only" for="password">Password:</label>
-              <input type="password" required minlength="8" name="password" #password="ngModel" class="form-control mb-2 mr-sm-2"
-              id="password" [(ngModel)]="loggedInUser.password" placeholder="Password"/>
-              <div class="alert alert-danger" *ngIf="password.touched && !password.valid">Password must contain minimum 8 characters.</div>
-
-            <label class="sr-only" for="password2">Retype Password:</label>
-              <input type="password" required minlength="8" name="confirmPassword" ngModel #confirmPassword="ngModel" class="form-control mb-2 mr-sm-2"
-              id="confirmPassword" placeholder="Confirm Password" />
-            <div class="alert alert-danger" *ngIf="confirmPassword.touched && password !== confirmPassword">Password fields must match.</div>
-
-            <label class="sr-only" for="firstName">First Name:</label>
+            <label class="" for="firstName">First Name:</label>
               <input type="text" required minlength="2" name="firstName" #firstName="ngModel" class="form-control mb-2 mr-sm-2"
               id="firstName" [(ngModel)]="loggedInUser.firstName" placeholder="First Name" />
             <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">First Name must contain minimum 2 characters.</div>
 
-            <label class="sr-only" for="lastName">Last Name:</label>
+            <label class="" for="lastName">Last Name:</label>
               <input type="text" required minlength="2" name="lastName" #lastName="ngModel" class="form-control mb-2 mr-sm-2"
               id="lastName" [(ngModel)]="loggedInUser.lastName" placeholder="Last Name"/>
             <div class="alert alert-danger" *ngIf="lastName.touched && !lastName.valid">Last Name must contain minimum 2 characters.</div>
 
-            <label class="sr-only" for="email">Email:</label>
+            <label class="" for="email">Email:</label>
               <input type="email" required minlength="7" name="email" #email="ngModel" class="form-control mb-2 mr-sm-2"
               id="email" [(ngModel)]="loggedInUser.email" placeholder="email@example.com"/>
             <div class="alert alert-danger" *ngIf="email.touched && !email.valid">Email must contain minimum 7 characters.</div>
 
-            <label class="sr-only" for="title">Title:</label>
+            <label class="" for="title">Title:</label>
               <input type="text" required minlength="3" name="title" #title="ngModel" class="form-control mb-2 mr-sm-2" id="title" [(ngModel)]="loggedInUser.title" placeholder="Title"/>
               <div class="alert alert-danger" *ngIf="title.touched && !title.valid">Title must contain minimum 3 characters.</div>
 
             <div class="text-center">
-            <button class="btn btn-primary" type="submit" [disabled]="!f.valid" (click)="loginAfterUpdate(loggedInUser)">Update Profile</button>
+            <button class="btn btn-primary" type="submit" [disabled]="!firstName.valid || !lastName.valid || !email.valid || !title.valid" (click)="updateUser(loggedInUser)">Update Profile</button>
             </div>
           </form>
         </div>
       </div>
     </div>
 
+    <br/>
+    <br/>
+
+    <div class="d-flex justify-content-center align-items-center container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+              <form #credentialForm="ngForm" role="form">
+                  <label class="" for="username">Username:</label>
+                    <input type="text" required minlength="3" name="username" #username="ngModel" class="form-control mb-2 mr-sm-2"
+                    id="username" [(ngModel)]="loggedInUser.username" placeholder="Username"/>
+                    <div class="alert alert-danger" *ngIf="username.touched && !username.valid">Username must contain minimum 3 characters.</div>
+
+                  <label class="" for="password">Password:</label>
+                    <input type="password" required minlength="8" name="password" #password="ngModel" class="form-control mb-2 mr-sm-2"
+                    id="password" [(ngModel)]="loggedInUser.password" placeholder="Password"/>
+                    <div class="alert alert-danger" *ngIf="password.touched && !password.valid">Password must contain minimum 8 characters.</div>
+
+                <label class="" for="password2">Retype Password:</label>
+                  <input type="password" #password2="ngModel" required minlength="8" name="confirmPassword" [(ngModel)]="confirmPassword" class="form-control mb-2 mr-sm-2"
+                  id="confirmPassword" placeholder="Confirm Password" />
+                  <div class="alert alert-danger" *ngIf="password2.touched && loggedInUser.password !== confirmPassword">Password fields must match.</div>
+                  <div class="alert alert-danger" *ngIf="password2.touched && !password2.valid">Password must contain minimum 8 characters.</div>
+                  <div class="alert alert-danger" *ngIf="password.touched">Note: Changing your credentials will require you to re-authenticate.</div>
+                <div class="text-center">
+                    <button class="btn btn-primary" type="submit" [disabled]="!username.valid || !password.valid || !password2.valid || loggedInUser.password !== confirmPassword"
+                    (click)="loginAfterUpdate(loggedInUser)">Update Credentials</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <br/>

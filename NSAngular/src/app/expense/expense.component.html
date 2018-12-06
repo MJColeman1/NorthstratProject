@@ -1,29 +1,29 @@
 <div class="d-flex justify-content-center align-items-center container">
     <div class="row">
       <div class="col-lg-12 col-md-12">
-          <form #f="ngForm" role="form">
+          <form #expenseForm="ngForm" role="form">
             <label class="sr-only" for="username">Description:</label>
               <input type="text" required minlength="3" name="description" #description="ngModel" class="form-control mb-2 mr-sm-2"
               id="description" [(ngModel)]="expense.description" placeholder="Description"/>
-              <!-- <div class="alert alert-danger" *ngIf="username.touched && !username.valid">Username must contain minimum 3 characters.</div> -->
+              <div class="alert alert-danger" *ngIf="description.touched && !description.valid">Description must contain minimum 3 characters.</div>
 
             <label class="sr-only" for="attendees">Attendees</label>
-              <input type="text" required minlength="8" name="attendees" #attendees="ngModel" class="form-control mb-2 mr-sm-2"
+              <input type="text" required minlength="3" name="attendees" #attendees="ngModel" class="form-control mb-2 mr-sm-2"
               id="attendees" [(ngModel)]="expense.attendees" placeholder="Attendees"/>
-              <!-- <div class="alert alert-danger" *ngIf="password.touched && !password.valid">Password must contain minimum 8 characters.</div> -->
+              <div class="alert alert-danger" *ngIf="attendees.touched && !attendees.valid">Attendees must contain minimum 3 characters.</div>
 
             <label class="sr-only" for="amount">Amount:</label>
-              <input type="text" required minlength="2" name="amount" ngModel #amount="ngModel" class="form-control mb-2 mr-sm-2"
+              <input type="text" required pattern="^[0-9]*\.[0-9][0-9]$" name="amount" ngModel #amount="ngModel" class="form-control mb-2 mr-sm-2"
               id="amount"  [(ngModel)]="expense.amount" placeholder="Amount"/>
-            <!-- <div class="alert alert-danger" *ngIf="amount.touched && password !== amount">Password fields must match.</div> -->
+            <div class="alert alert-danger" *ngIf="amount.touched && !amount.valid">Amount must be formatted as a decimal number (e.g. 456.78)</div>
 
             <label class="sr-only" for="glAccount">GL Account</label>
-              <input type="text" required minlength="2" name="glAccount" #glAccount="ngModel" class="form-control mb-2 mr-sm-2"
+              <input type="text" required minlength="3" name="glAccount" #glAccount="ngModel" class="form-control mb-2 mr-sm-2"
               id="glAccount" [(ngModel)]="expense.glAccount" placeholder="GL Account" />
-            <!-- <div class="alert alert-danger" *ngIf="glAccount.touched && !glAccount.valid">First Name must contain minimum 2 characters.</div> -->
+            <div class="alert alert-danger" *ngIf="glAccount.touched && !glAccount.valid">GL Account must contain minimum 3 characters.</div>
 
             <div class="text-center">
-            <button class="btn btn-primary" type="submit" (click)="createExpense(expense)">Create Expense Report</button>
+            <button class="btn btn-primary" type="submit" [disabled]="!expenseForm.valid" (click)="createExpense(expense)">Create Expense Report</button>
             </div>
           </form>
         </div>

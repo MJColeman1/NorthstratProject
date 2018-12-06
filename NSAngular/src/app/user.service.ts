@@ -5,6 +5,7 @@ import { throwError, Observable } from 'rxjs';
 import { HttpHeaders} from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -58,6 +59,20 @@ export class UserService {
       catchError((err: any) => {
         console.log(err);
         return throwError('Kaboom in update user service');
+      })
+    );
+  }
+
+  updateUsernameAndPassword(user: User) {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders()
+    .set('Authorization', `Basic ${token}`);
+    console.log(token);
+    return this.http.put<User>(this.url + '/updatepassword', user, { headers })
+    .pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('kaboom in update password user service');
       })
     );
   }
