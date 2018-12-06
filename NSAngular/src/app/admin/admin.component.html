@@ -7,6 +7,12 @@
     {{ loggedInUser.username }} <br/>
     </p>
 
+    <div style="text-align: center;">
+    <span *ngFor="let type of types" (click)="selectedType = type">
+      {{ type }} |
+    </span>
+  </div>
+  <br/>
 
     <h4 class="expense" *ngIf="expenses">Expense Reports (Click to Show Details)</h4>
  <table class="table table-striped" *ngIf="!selected && expenses">
@@ -17,7 +23,7 @@
       <th>Status</th>
       <th>Submitted By</th>
     </tr>
-    <tr *ngFor="let expense of expenses">
+    <tr *ngFor="let expense of expenses | ReportStatus:selectedType">
       <td (click)="displayExpense(expense)">{{ expense.id }}</td>
       <td (click)="displayExpense(expense)">{{ expense.createdAt | date: 'short' }}</td>
       <td (click)="displayExpense(expense)">{{ expense.description }}</td>
@@ -57,9 +63,67 @@
             <td>{{ selected.glAccount }}</td>
             <td>{{ selected.user.firstName + ' ' + selected.user.lastName }}</td>
             <td *ngIf="selected.createdAt !== selected.updatedAt">{{ selected.updatedAt  | date: 'short' }}</td>
+            <td>
+              <button type="button" class="btn btn-warning btn-md" value="Return to List" (click)="setAddExpenseComments()" *ngIf="selected">Add Comments</button> <br/> <br/>
+              <button type="button" class="btn btn-warning btn-md" value="Return to List" (click)="setViewExpenseComments()" *ngIf="selected">View Comments</button>
+            </td>
         </table>
 
+        <div class="d-flex justify-content-center align-items-center container">
+            <div class="row">
+              <div class="col-lg-12 col-md-12">
+                  <form #adminComments="ngForm" role="form" *ngIf="addExpenseComments">
+                    <label class="" for="adminComments">Administrative Comments (Optional):</label>
+                      <textarea rows="4" cols="50" required minlength="5" class="form-control mb-2 mr-sm-2" id="adminComments" name="adminComments"
+                      #adminComments="ngModel" [(ngModel)]="addExpenseComments.adminComments" placeholder="Comments:"></textarea>
+                      <div class="text-center">
+                      <button type="submit" class="btn btn-warning" value="Cancel" (click)="addExpenseComments = null">Cancel</button> &nbsp;
+                      <button type="submit" class="btn btn-success" value="Update" (click)="updateExpenseReport(addExpenseComments, addExpenseComments.id)">Submit</button>
+                      </div>
+                    </form>
+                    </div>
+                    </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="d-flex justify-content-center align-items-center container">
+                        <div class="row">
+                          <div class="col-lg-12 col-md-12">
+                              <div class="card" style="width: 25rem;" *ngIf="viewExpenseComments">
+                                  <div class="card-body">
+                                      <h5 class="card-title">User Comment</h5>
+                                      <h6 class="card-title">From: {{ viewExpenseComments.user.firstName + ' ' + viewExpenseComments.user.lastName }}</h6>
+                                      <h6 class="card-subtitle mb-2 text-muted">{{ viewExpenseComments.updatedAt | date: 'shortDate' }}</h6>
+                                      <p class="card-text">{{ viewExpenseComments.userComments }}</p>
+                                      <p class="card-text" *ngIf="viewExpenseComments.userComments === null || viewExpenseComments.userComments === '' || viewExpenseComments.userComments === ' '">
+                                        There is no user comment at this time.</p>
+                                  </div>
+                              <div class="card-body">
+                                <h5 class="card-title">Administrative Comment</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ viewExpenseComments.updatedAt | date: 'short' }}</h6>
+                                <p class="card-text">{{ viewExpenseComments.adminComments }}</p>
+                                <p class="card-text" *ngIf="viewExpenseComments.adminComments === null || viewExpenseComments.adminComments === '' || viewExpenseComments.adminComments === ' '">
+                                  You have not created a comment for this report.</p>
+                              </div>
+                                  <div class="text-center">
+                                  <button type="submit" class="btn btn-warning" value="Cancel" (click)="viewExpenseComments = null">Hide Comments</button> <br/> <br/>
+                                  </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                          <br/>
+                          <br/>
         <br/>
+
+        <div style="text-align: center;">
+            <span *ngFor="let type of types" (click)="selectedTravelType = type">
+              {{ type }} |
+            </span>
+          </div>
+          <br/>
+
         <h4 class="travel">Travel Reports (Click to Show Details)</h4>
         <table class="table table-striped" *ngIf="!clicked">
             <tr>
@@ -69,7 +133,7 @@
               <th>Status</th>
               <th>Submitted By</th>
             </tr>
-            <tr *ngFor="let travel of travelReports">
+            <tr *ngFor="let travel of travelReports | ReportStatus:selectedTravelType">
               <td (click)="displayTravelReport(travel)">{{ travel.id }}</td>
               <td (click)="displayTravelReport(travel)">{{ travel.createdAt | date: 'short' }}</td>
               <td (click)="displayTravelReport(travel)">{{ travel.tripLocation }}</td>
@@ -110,5 +174,56 @@
                     <td>{{ clicked.totalCost | currency }}</td>
                     <td>{{ clicked.user.firstName + ' ' + clicked.user.lastName }}</td>
                     <td *ngIf="clicked.createdAt !== clicked.updatedAt">{{ clicked.updatedAt | date: 'short' }}</td>
+                    <td>
+                      <button type="button" class="btn btn-warning btn-md" value="Return to List" (click)="setAddTravelComments()" *ngIf="clicked">Add Comments</button> <br/> <br/>
+                      <button type="button" class="btn btn-warning btn-md" value="Return to List" (click)="setViewTravelComments()" *ngIf="clicked">View Comments</button>
+                    </td>
                   </tr>
                 </table>
+
+                <div class="d-flex justify-content-center align-items-center container">
+                    <div class="row">
+                      <div class="col-lg-12 col-md-12">
+                          <form #adminComments="ngForm" role="form" *ngIf="addTravelComments">
+                            <label class="" for="adminComments">Administrative Comments (Optional):</label>
+                              <textarea rows="4" cols="50" required minlength="5" class="form-control mb-2 mr-sm-2" id="adminComments" name="adminComments"
+                              #adminComments="ngModel" [(ngModel)]="addTravelComments.adminComments" placeholder="Comments:"></textarea>
+                              <div class="text-center">
+                              <button type="submit" class="btn btn-warning" value="Cancel" (click)="addTravelComments = null">Cancel</button> &nbsp;
+                              <button type="submit" class="btn btn-success" value="Update" (click)="updateTravelReport(addTravelComments, addTravelComments.id)">Submit</button>
+                              </div>
+                            </form>
+                            </div>
+                            </div>
+                            </div>
+                            <br/>
+
+
+                            <div class="d-flex justify-content-center align-items-center container">
+                            <div class="row">
+                              <div class="col-lg-12 col-md-12">
+                                  <div class="card" style="width: 25rem;" *ngIf="viewTravelComments">
+                                      <div class="card-body">
+                                          <h5 class="card-title">User Comment</h5>
+                                          <h6 class="card-title">From: {{ viewTravelComments.user.firstName + ' ' + viewTravelComments.user.lastName }}</h6>
+                                          <h6 class="card-subtitle mb-2 text-muted">{{ viewTravelComments.updatedAt | date: 'shortDate' }}</h6>
+                                          <p class="card-text">{{ viewTravelComments.userComments }}</p>
+                                          <p class="card-text" *ngIf="viewTravelComments.userComments === null || viewTravelComments.userComments === '' || viewTravelComments.userComments === ' '">
+                                            There is no user comment at this time.</p>
+                                        </div>
+                                        <div class="card-body">
+                                          <h5 class="card-title">Administrative Comment</h5>
+                                          <h6 class="card-subtitle mb-2 text-muted">{{ viewTravelComments.updatedAt | date: 'short' }}</h6>
+                                          <p class="card-text">{{ viewTravelComments.adminComments }}</p>
+                                          <p class="card-text" *ngIf="viewTravelComments.adminComments === null || viewTravelComments.adminComments === '' || viewTravelComments.adminComments === ' '">
+                                          You have not created a comment for this report.</p>
+                                  </div>
+                                      <div class="text-center">
+                                      <button type="submit" class="btn btn-warning" value="Cancel" (click)="viewTravelComments = null">Hide Comments</button> <br/> <br/>
+                                      </div>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                              <br/>
+                              <br/>

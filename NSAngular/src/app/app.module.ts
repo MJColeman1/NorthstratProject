@@ -19,6 +19,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AdminComponent } from './admin/admin.component';
 import { AuthGuardService } from './auth-guard.service';
+import { ReportStatusPipe } from './report-status.pipe';
 
 const routes: Routes = [
 { path: '', pathMatch: 'full', redirectTo: 'login'},
@@ -44,7 +45,8 @@ const routes: Routes = [
     RegisterComponent,
     NavigationComponent,
     ProfileComponent,
-    AdminComponent
+    AdminComponent,
+    ReportStatusPipe
   ],
   imports: [
     BrowserModule,

@@ -59,6 +59,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 		managed.setAmount(expense.getAmount());
 		managed.setGlAccount(expense.getGlAccount());
 		managed.setUserComments(expense.getUserComments());
+		managed.setStatus("Submitted for Review");
 		managed.setUser(u);
 		return er.saveAndFlush(managed);
 	}

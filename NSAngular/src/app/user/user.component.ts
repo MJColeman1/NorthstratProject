@@ -25,9 +25,29 @@ export class UserComponent implements OnInit {
 
   updateTravel = null;
 
+  viewExpenseComments = null;
+
+  viewTravelComments = null;
+
   expenses = [];
 
   travelReports = [];
+
+  expenseReportsByStatus = [];
+
+  travelReportsByStatus = [];
+
+  types = [
+    'Show All Reports',
+    'Submitted for Review',
+    'Under Review',
+    'Rejected',
+    'Approved'
+  ];
+
+  selectedType = 'Show All Reports';
+
+  selectedTravelType = 'Show All Reports';
 
   user: User = new User();
 
@@ -43,6 +63,8 @@ export class UserComponent implements OnInit {
     return this.expenseService.index().subscribe(
       data => {
         this.expenses = data;
+        this.expenseReportsByStatus = data;
+
       },
       error => console.log(error + ' Kaboom in get all expenses user component'));
   }
@@ -59,11 +81,16 @@ export class UserComponent implements OnInit {
     this.updateExpense = Object.assign({}, this.selected);
   }
 
+  setViewExpenseComments() {
+    this.viewExpenseComments = Object.assign({}, this.selected);
+  }
+
   getAllTravelReports() {
     return this.travelService.index().subscribe(
       data => {
         this.travelReports = data;
         this.selected = null;
+        this.travelReportsByStatus = data;
       },
       error => console.log(error + ' kaboom in get all travel component'));
   }
@@ -78,6 +105,10 @@ export class UserComponent implements OnInit {
 
   setEditTravel() {
     this.updateTravel = Object.assign({}, this.clicked);
+  }
+
+  setViewTravelComments() {
+    this.viewTravelComments = Object.assign({}, this.clicked);
   }
 
   updateExpenseReport(expense: Expense, id: number) {

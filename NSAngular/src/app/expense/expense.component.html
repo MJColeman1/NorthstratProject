@@ -22,6 +22,10 @@
               id="glAccount" [(ngModel)]="expense.glAccount" placeholder="GL Account" />
             <div class="alert alert-danger" *ngIf="glAccount.touched && !glAccount.valid">GL Account must contain minimum 3 characters.</div>
 
+            <label class="sr-only" for="userComments">Comments (Optional):</label>
+                <textarea rows="4" cols="50" class="form-control mb-2 mr-sm-2" id="userComments" name="userComments"
+                #userComments="ngModel" [(ngModel)]="expense.userComments" placeholder="Comments (Optional):"></textarea>
+
             <div class="text-center">
             <button class="btn btn-primary" type="submit" [disabled]="!expenseForm.valid" (click)="createExpense(expense)">Create Expense Report</button>
             </div>

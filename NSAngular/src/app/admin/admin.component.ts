@@ -15,6 +15,10 @@ export class AdminComponent implements OnInit {
 
   expenses = [];
 
+  expenseReports = [];
+
+  travelReportsByStatus = [];
+
   travelReports = [];
 
   loggedInUser = this.userService.getUser().subscribe(data => this.loggedInUser = data);
@@ -27,6 +31,26 @@ export class AdminComponent implements OnInit {
 
   updateTravel = null;
 
+  addExpenseComments = null;
+
+  addTravelComments = null;
+
+  viewExpenseComments = null;
+
+  viewTravelComments = null;
+
+  types = [
+    'Show All Reports',
+    'Submitted for Review',
+    'Under Review',
+    'Rejected',
+    'Approved'
+  ];
+
+  selectedType = 'Show All Reports';
+
+  selectedTravelType = 'Show All Reports';
+
   reload() {
     return this.getAllExpenseReports(), this.getAllTravelReports();
   }
@@ -35,6 +59,7 @@ export class AdminComponent implements OnInit {
     return this.adminService.getAllExpenses().subscribe(
       data => {
         this.expenses = data;
+        this.expenseReports = data;
       },
       error => console.log(error + ' kaboom in get all expenses admin component'));
   }
@@ -52,8 +77,17 @@ export class AdminComponent implements OnInit {
       data => {
         this.reload();
         this.selected = null;
+        this.addExpenseComments = null;
       },
       error => console.log(error + ' Kaboom in admin update expense report'));
+  }
+
+  setAddExpenseComments() {
+    this.addExpenseComments = Object.assign({}, this.selected);
+  }
+
+  setViewExpenseComments() {
+    this.viewExpenseComments = Object.assign({}, this.selected);
   }
 
   updateTravelReport(travel: Travel, id: number) {
@@ -61,6 +95,7 @@ export class AdminComponent implements OnInit {
       data => {
       this.reload();
       this.clicked = null;
+      this.addTravelComments = null;
       },
       error => console.log(error + ' kaboom in admin update travel report'));
   }
@@ -70,6 +105,7 @@ export class AdminComponent implements OnInit {
     return this.adminService.getAllTravel().subscribe(
       data => {
         this.travelReports = data;
+        this.travelReportsByStatus = data;
       },
       error => console.log(error + ' kaboom in get all travel admin component'));
   }
@@ -80,6 +116,14 @@ export class AdminComponent implements OnInit {
 
   displayTravelTable() {
     return this.clicked = null;
+  }
+
+  setAddTravelComments() {
+    this.addTravelComments = Object.assign({}, this.clicked);
+  }
+
+  setViewTravelComments() {
+    this.viewTravelComments = Object.assign({}, this.clicked);
   }
 
 

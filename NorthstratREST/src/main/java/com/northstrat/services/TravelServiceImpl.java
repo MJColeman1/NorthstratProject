@@ -53,6 +53,7 @@ public class TravelServiceImpl implements TravelService {
 		managed.setTravelDates(travel.getTravelDates());
 		managed.setTripLocation(travel.getTripLocation());
 		managed.setUserComments(travel.getUserComments());
+		managed.setStatus("Submitted for Review");
 		
 		return tr.saveAndFlush(managed);
 	}

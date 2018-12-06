@@ -22,6 +22,10 @@
               id="totalCost" [(ngModel)]="travel.totalCost" placeholder="Total Cost" />
             <div class="alert alert-danger" *ngIf="totalCost.touched && !totalCost.valid">Total Cost must be formatted as a decimal number (e.g. 456.78)</div>
 
+            <label class="sr-only" for="userComments">Comments (Optional):</label>
+                <textarea rows="4" cols="50" class="form-control mb-2 mr-sm-2" id="userComments" name="userComments"
+                #userComments="ngModel" [(ngModel)]="travel.userComments" placeholder="Comments (Optional):"></textarea>
+
             <div class="text-center">
             <button class="btn btn-primary" type="submit" [disabled]="!travelForm.valid" (click)="createTravelReport(travel)">Create Travel Report</button>
             </div>
