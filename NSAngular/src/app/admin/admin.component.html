@@ -1,20 +1,18 @@
-<p>
-    Welcome {{ loggedInUser.firstName }} <br/>
+<br/>
+<br/>
+<div style="text-align: center">
+ <h6>Welcome to the Administrator Portal. Please review all reports carefully and dilligently before making a decision. </h6> <br/>
+</div>
+<br/>
 
-    Last Name: {{ loggedInUser.lastName }} <br/>
-    {{ loggedInUser.email }} <br/>
-    {{ loggedInUser.title }} <br/>
-    {{ loggedInUser.username }} <br/>
-    </p>
-
-    <div style="text-align: center;">
-    <span *ngFor="let type of types" (click)="selectedType = type">
+    <div style="text-align: center; color: rgb(43, 74, 148); font-weight: bold">
+    | <span *ngFor="let type of types" (click)="selectedType = type">
       {{ type }} |
     </span>
   </div>
   <br/>
 
-    <h4 class="expense" *ngIf="expenses">Expense Reports (Click to Show Details)</h4>
+    <h5 class="expense" *ngIf="expenses">Expense Reports (Click to Show Details)</h5>
  <table class="table table-striped" *ngIf="!selected && expenses">
     <tr>
       <th>Report ID</th>
@@ -44,7 +42,7 @@
         <th>GL Account</th>
         <th>Submitted By</th>
         <th *ngIf="selected.createdAt != selected.updatedAt">Date Updated</th>
-        <th><button type="button" class="btn btn-success" value="Return to List" (click)="displayExpenseTable()" *ngIf="selected">Return to List</button></th>
+        <th><button type="button" class="btn btn-success btn-sm" value="Return to List" (click)="displayExpenseTable()" *ngIf="selected">Return to List</button></th>
       </tr>
         <tr>
             <td>{{ selected.id }}</td>
@@ -56,7 +54,7 @@
                 <option value="Rejected">Rejected</option>
                 <option value="Approved">Approved</option>
               </select> <br/> <br/>
-              <button type="button" class="btn btn-info btn-md" value="Return to List" (click)="updateExpenseReport(selected, selected.id)" *ngIf="selected">Change Status</button>
+              <button type="button" class="btn btn-info btn-sm" value="Return to List" (click)="updateExpenseReport(selected, selected.id)" *ngIf="selected">Change Status</button>
             </td>
             <td>{{ selected.attendees }}</td>
             <td>{{ selected.amount | currency}}</td>
@@ -64,8 +62,8 @@
             <td>{{ selected.user.firstName + ' ' + selected.user.lastName }}</td>
             <td *ngIf="selected.createdAt !== selected.updatedAt">{{ selected.updatedAt  | date: 'short' }}</td>
             <td>
-              <button type="button" class="btn btn-warning btn-md" value="Return to List" (click)="setAddExpenseComments()" *ngIf="selected">Add Comments</button> <br/> <br/>
-              <button type="button" class="btn btn-warning btn-md" value="Return to List" (click)="setViewExpenseComments()" *ngIf="selected">View Comments</button>
+              <button type="button" class="btn btn-warning btn-sm" value="Return to List" (click)="setAddExpenseComments()" *ngIf="selected">Add Comments</button> <br/> <br/>
+              <button type="button" class="btn btn-warning btn-sm" value="Return to List" (click)="setViewExpenseComments()" *ngIf="selected">View Comments</button>
             </td>
         </table>
 
@@ -77,8 +75,8 @@
                       <textarea rows="4" cols="50" required minlength="5" class="form-control mb-2 mr-sm-2" id="adminComments" name="adminComments"
                       #adminComments="ngModel" [(ngModel)]="addExpenseComments.adminComments" placeholder="Comments:"></textarea>
                       <div class="text-center">
-                      <button type="submit" class="btn btn-warning" value="Cancel" (click)="addExpenseComments = null">Cancel</button> &nbsp;
-                      <button type="submit" class="btn btn-success" value="Update" (click)="updateExpenseReport(addExpenseComments, addExpenseComments.id)">Submit</button>
+                      <button type="submit" class="btn btn-warning btn-sm" value="Cancel" (click)="addExpenseComments = null">Cancel</button> &nbsp;
+                      <button type="submit" class="btn btn-success btn-sm" value="Update" (click)="updateExpenseReport(addExpenseComments, addExpenseComments.id)">Submit</button>
                       </div>
                     </form>
                     </div>
@@ -107,7 +105,7 @@
                                   You have not created a comment for this report.</p>
                               </div>
                                   <div class="text-center">
-                                  <button type="submit" class="btn btn-warning" value="Cancel" (click)="viewExpenseComments = null">Hide Comments</button> <br/> <br/>
+                                  <button type="submit" class="btn btn-warning btn-sm" value="Cancel" (click)="viewExpenseComments = null">Hide Comments</button> <br/> <br/>
                                   </div>
                                 </div>
                             </div>
@@ -117,14 +115,14 @@
                           <br/>
         <br/>
 
-        <div style="text-align: center;">
-            <span *ngFor="let type of types" (click)="selectedTravelType = type">
+        <div style="text-align: center; color: rgb(43, 74, 148); font-weight: bold">
+            | <span *ngFor="let type of types" (click)="selectedTravelType = type">
               {{ type }} |
             </span>
           </div>
           <br/>
 
-        <h4 class="travel">Travel Reports (Click to Show Details)</h4>
+        <h5 class="travel">Travel Reports (Click to Show Details)</h5>
         <table class="table table-striped" *ngIf="!clicked">
             <tr>
               <th>Report ID</th>
@@ -154,7 +152,7 @@
                 <th>Total Cost</th>
                 <th>Submitted By</th>
                 <th *ngIf="clicked.createdAt !== clicked.updatedAt">Date Updated</th>
-                <th><button type="button" class="btn btn-success" value="Return to List" (click)="displayTravelTable()" *ngIf="clicked">Return to List</button></th>
+                <th><button type="button" class="btn btn-success btn-sm" value="Return to List" (click)="displayTravelTable()" *ngIf="clicked">Return to List</button></th>
               </tr>
                 <tr>
                     <td>{{ clicked.id }}</td>
@@ -167,7 +165,7 @@
                         <option value="Rejected">Rejected</option>
                         <option value="Approved">Approved</option>
                       </select> <br/> <br/>
-                      <button type="button" class="btn btn-info" value="Return to List" (click)="updateTravelReport(clicked, clicked.id)" *ngIf="clicked">Change Status</button>
+                      <button type="button" class="btn btn-info btn-sm" value="Return to List" (click)="updateTravelReport(clicked, clicked.id)" *ngIf="clicked">Change Status</button>
                     </td>
                     <td>{{ clicked.travelDates }}</td>
                     <td>{{ clicked.projectChargeCode }}</td>
@@ -175,8 +173,8 @@
                     <td>{{ clicked.user.firstName + ' ' + clicked.user.lastName }}</td>
                     <td *ngIf="clicked.createdAt !== clicked.updatedAt">{{ clicked.updatedAt | date: 'short' }}</td>
                     <td>
-                      <button type="button" class="btn btn-warning btn-md" value="Return to List" (click)="setAddTravelComments()" *ngIf="clicked">Add Comments</button> <br/> <br/>
-                      <button type="button" class="btn btn-warning btn-md" value="Return to List" (click)="setViewTravelComments()" *ngIf="clicked">View Comments</button>
+                      <button type="button" class="btn btn-warning btn-sm" value="Return to List" (click)="setAddTravelComments()" *ngIf="clicked">Add Comments</button> <br/> <br/>
+                      <button type="button" class="btn btn-warning btn-sm" value="Return to List" (click)="setViewTravelComments()" *ngIf="clicked">View Comments</button>
                     </td>
                   </tr>
                 </table>
@@ -189,8 +187,8 @@
                               <textarea rows="4" cols="50" required minlength="5" class="form-control mb-2 mr-sm-2" id="adminComments" name="adminComments"
                               #adminComments="ngModel" [(ngModel)]="addTravelComments.adminComments" placeholder="Comments:"></textarea>
                               <div class="text-center">
-                              <button type="submit" class="btn btn-warning" value="Cancel" (click)="addTravelComments = null">Cancel</button> &nbsp;
-                              <button type="submit" class="btn btn-success" value="Update" (click)="updateTravelReport(addTravelComments, addTravelComments.id)">Submit</button>
+                              <button type="submit" class="btn btn-warning btn-sm" value="Cancel" (click)="addTravelComments = null">Cancel</button> &nbsp;
+                              <button type="submit" class="btn btn-success btn-sm" value="Update" (click)="updateTravelReport(addTravelComments, addTravelComments.id)">Submit</button>
                               </div>
                             </form>
                             </div>
@@ -219,11 +217,59 @@
                                           You have not created a comment for this report.</p>
                                   </div>
                                       <div class="text-center">
-                                      <button type="submit" class="btn btn-warning" value="Cancel" (click)="viewTravelComments = null">Hide Comments</button> <br/> <br/>
+                                      <button type="submit" class="btn btn-warning btn-sm" value="Cancel" (click)="viewTravelComments = null">Hide Comments</button> <br/> <br/>
                                       </div>
                                     </div>
                                 </div>
                               </div>
                             </div>
                               <br/>
-                              <br/>
+                              <section class="footer">
+                                  <img class="Northstrat" width="100%" height="600rem" src="http://www.northstrat.net/northstrat/wp-content/uploads/2018/09/earth-1149733-e1536335141161.jpg">
+                                </section>
+
+                                <!-- Footer -->
+<footer class="page-footer font-small teal pt-4">
+
+    <!-- Footer Text -->
+    <div class="container-fluid text-center text-md-left">
+
+      <!-- Grid row -->
+      <div class="row">
+
+        <!-- Grid column -->
+        <div class="col-md-6 mt-md-0 mt-3">
+
+          <!-- Content -->
+          <h5 class="text-uppercase font-weight-bold">Overhead Expense Reports</h5>
+          <p>Please review all overhead expense reports carefully to ensure accurate, detailed information is present. This will assist Northstrat's accounting department in processing expense reports quickly and efficiently,
+            allowing our employees to receive their funds in a timely manner. </p>
+        </div>
+        <!-- Grid column -->
+
+        <hr class="clearfix w-100 d-md-none pb-3">
+
+        <!-- Grid column -->
+        <div class="col-md-6 mb-md-0 mb-3">
+
+          <!-- Content -->
+          <h5 class="text-uppercase font-weight-bold">Overhead Travel Reports</h5>
+          <p>Please review all overhead travel reports carefully to ensure accurate, detailed information is present. This will assist Northstrat's accounting department in processing travel reports quickly and efficiently,
+              allowing our employees to receive their funds in a timely manner. </p>
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+    </div>
+    <!-- Footer Text -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2018 Copyright:
+      <a href="http://www.northstrat.net/northstrat/" target="_blank"> Northstrat.net</a>
+    </div>
+    <!-- Copyright -->
+
+  </footer>

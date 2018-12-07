@@ -3,7 +3,7 @@
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font: normal 13px Verdana, Arial, sans-serif; }
 
 .expense {
   text-align: center;
@@ -17,9 +17,56 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   text-align: center;
 }
 
-#mainNav {
-position: fixed;
-left: 0;
-top: 0;
-width: 100%;
+/* {
+  background-color:#003366;
+  margin:0;
+  padding:0;
+  width:90vw;
+  height:22.5vh;
+  float:right;
+  overflow:auto;
+  } */
+
+@media (min-width:992px) {
+  #mainNav {
+      border-color: transparent;
+      background-color: rgb(46, 62, 99);
+  }
+  #mainNav .navbar-brand {
+      color: rgba(255, 255, 255, .7)
+  }
+  #mainNav .navbar-brand:focus,
+  #mainNav .navbar-brand:hover {
+      color: rgb(19, 18, 18)
+  }
+  #mainNav .navbar-nav>li.nav-item>a.nav-link {
+      padding: .5rem 1rem
+  }
+  #mainNav .navbar-nav>li.nav-item>a.nav-link,
+  #mainNav .navbar-nav>li.nav-item>a.nav-link:focus {
+      color: rgb(241, 237, 237)
+  }
+  #mainNav .navbar-nav>li.nav-item>a.nav-link:focus:hover,
+  #mainNav .navbar-nav>li.nav-item>a.nav-link:hover {
+      color: rgb(14, 13, 13)
+  }
+  #mainNav.navbar-shrink {
+      border-bottom: 1px solid rgba(33, 37, 41, .1);
+      background-color: rgb(46, 62, 99);
+  }
+  #mainNav.navbar-shrink .navbar-brand {
+      color: #f05f40
+  }
+  #mainNav.navbar-shrink .navbar-brand:focus,
+  #mainNav.navbar-shrink .navbar-brand:hover {
+      color: #f05f40
+  }
+  #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link,
+  #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link:focus {
+      color: #212529
+  }
+  #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link:focus:hover,
+  #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link:hover {
+      color: #f05f40
+  }
 }

@@ -1,21 +1,20 @@
+<br/>
+<br/>
+<div style="text-align: center">
+ <h4>Welcome to the Northstrat Overhead Expense Reporting System, {{ loggedInUser.firstName }}! </h4> <br/>
+</div>
 
-<p>
- Welcome {{ loggedInUser.firstName }} <br/>
+ <br/>
+ <br/>
 
- Last Name: {{ loggedInUser.lastName }} <br/>
- {{ loggedInUser.email }} <br/>
- {{ loggedInUser.title }} <br/>
- {{ loggedInUser.username }} <br/>
- </p>
-
- <div style="text-align: center;">
-    <span *ngFor="let type of types" (click)="selectedType = type">
+ <div style="text-align: center; color: rgb(43, 74, 148); font-weight: bold">
+    | <span *ngFor="let type of types" (click)="selectedType = type">
       {{ type }} |
     </span>
   </div>
   <br/>
 
- <h4 class="expense" *ngIf="expenses">Expense Reports (Click to Show Details)</h4>
+ <h5 class="expense" *ngIf="expenses">Expense Reports (Click to Show Details)</h5>
  <table class="table table-striped" *ngIf="!selected && expenses">
     <tr>
       <th>Report ID</th>
@@ -42,7 +41,7 @@
         <th>GL Account</th>
         <th *ngIf="selected.createdAt != selected.updatedAt">Date Updated</th>
         <th>Comments</th>
-        <th><button type="button" class="btn btn-success" value="Return to List" (click)="displayExpenseTable()" *ngIf="selected">Return to List</button></th>
+        <th><button type="button" class="btn btn-success btn-sm" value="Return to List" (click)="displayExpenseTable()" *ngIf="selected">Return to List</button></th>
       </tr>
         <tr>
             <td>{{ selected.id }}</td>
@@ -53,9 +52,9 @@
             <td>{{ selected.amount | currency}}</td>
             <td>{{ selected.glAccount }}</td>
             <td *ngIf="selected.createdAt !== selected.updatedAt">{{ selected.updatedAt  | date: 'short' }}</td>
-            <td><button type="button" class="btn btn-warning" value="Delete" (click)="setViewExpenseComments()">View Comments</button></td>
-            <td><button type="button" class="btn btn-warning" value="Return to List" [disabled]="selected.status === 'Under Review' || selected.status === 'Approved'" (click)="setEditExpense()" *ngIf="selected">Edit Report</button> </td>
-            <td><button type="button" class="btn btn-danger" value="Delete" (click)="deleteExpenseReport(selected.id)">X</button></td> </tr>
+            <td><button type="button" class="btn btn-warning btn-sm" value="Delete" (click)="setViewExpenseComments()">View Comments</button></td>
+            <td><button type="button" class="btn btn-warning btn-sm" value="Return to List" [disabled]="selected.status === 'Under Review' || selected.status === 'Approved'" (click)="setEditExpense()" *ngIf="selected">Edit Report</button> </td>
+            <td><button type="button" class="btn btn-danger btn-sm" value="Delete" (click)="deleteExpenseReport(selected.id)">Delete Report</button></td> </tr>
         </table>
 
         <div class="d-flex justify-content-center align-items-center container">
@@ -76,7 +75,7 @@
                           <p class="card-text">{{ viewExpenseComments.userComments }}</p>
                       </div>
                       <div class="text-center">
-                      <button type="submit" class="btn btn-warning" value="Cancel" (click)="viewExpenseComments = null">Hide Comments</button> <br/> <br/>
+                      <button type="submit" class="btn btn-warning btn-sm" value="Cancel" (click)="viewExpenseComments = null">Hide Comments</button> <br/> <br/>
                       </div>
                     </div>
                 </div>
@@ -85,7 +84,6 @@
 
             <br/>
 
-        <h4 class="update" *ngIf="updateExpense">&nbsp;&nbsp;Update Expense Report</h4>
         <div class="d-flex justify-content-center align-items-center container">
             <div class="row">
               <div class="col-lg-12 col-md-12">
@@ -111,8 +109,8 @@
                           #userComments="ngModel" [(ngModel)]="updateExpense.userComments" placeholder="Comments (Optional):"></textarea>
 
                         <div class="text-center">
-                      <button type="submit" class="btn btn-warning" value="Cancel" (click)="updateExpense = null">Cancel</button> &nbsp;
-                      <button type="submit" class="btn btn-success" value="Update" (click)="updateExpenseReport(updateExpense, updateExpense.id)">Update</button>
+                      <button type="submit" class="btn btn-warning btn-sm" value="Cancel" (click)="updateExpense = null">Cancel</button> &nbsp;
+                      <button type="submit" class="btn btn-success btn-sm" value="Update" (click)="updateExpenseReport(updateExpense, updateExpense.id)">Update</button>
                     </div>
                 </form>
                 <br/>
@@ -121,13 +119,13 @@
                 </div>
 
         <br/>
-        <div style="text-align: center;">
-            <span *ngFor="let type of types" (click)="selectedTravelType = type">
+        <div style="text-align: center; color: rgb(43, 74, 148); font-weight: bold">
+            | <span *ngFor="let type of types" (click)="selectedTravelType = type">
               {{ type }} |
             </span>
           </div>
           <br/>
-        <h4 class="travel">Travel Reports (Click to Show Details)</h4>
+        <h5 class="travel">Travel Reports (Click to Show Details)</h5>
         <table class="table table-striped" *ngIf="!clicked">
             <tr>
               <th>Report ID</th>
@@ -154,7 +152,7 @@
                 <th>Total Cost</th>
                 <th *ngIf="clicked.createdAt !== clicked.updatedAt">Date Updated</th>
                 <th *ngIf="clicked.userComments != null || clicked.userComments !== '' || clicked.adminComments != null || clicked.adminComments === ''">Comments</th>
-                <th><button type="button" class="btn btn-success" value="Return to List" (click)="displayTravelTable()" *ngIf="clicked">Return to List</button></th>
+                <th><button type="button" class="btn btn-success btn-sm" value="Return to List" (click)="displayTravelTable()" *ngIf="clicked">Return to List</button></th>
               </tr>
                 <tr>
                     <td>{{ clicked.id }}</td>
@@ -165,10 +163,10 @@
                     <td>{{ clicked.projectChargeCode }}</td>
                     <td>{{ clicked.totalCost | currency }}</td>
                     <td *ngIf="clicked.createdAt !== clicked.updatedAt">{{ clicked.updatedAt | date: 'short' }}</td>
-                    <td><button type="button" class="btn btn-warning" *ngIf="clicked.userComments != null || clicked.userComments !== ''"
+                    <td><button type="button" class="btn btn-warning btn-sm" *ngIf="clicked.userComments != null || clicked.userComments !== ''"
                       value="Delete" (click)="setViewTravelComments()">View Comments</button></td>
-                    <td><button type="button" class="btn btn-warning" value="Return to List" [disabled]="clicked.status === 'Under Review' || clicked.status === 'Approved'" (click)="setEditTravel()" *ngIf="clicked">Edit Report</button> </td>
-                    <td><button type="button" class="btn btn-danger" value="Delete" (click)="deleteTravelReport(clicked.id)">X</button></td>
+                    <td><button type="button" class="btn btn-warning btn-sm" value="Return to List" [disabled]="clicked.status === 'Under Review' || clicked.status === 'Approved'" (click)="setEditTravel()" *ngIf="clicked">Edit Report</button> </td>
+                    <td><button type="button" class="btn btn-danger btn-sm" value="Delete" (click)="deleteTravelReport(clicked.id)">Delete Report</button></td>
                   </tr>
                 </table>
 
@@ -190,7 +188,7 @@
                                   <p class="card-text">{{ viewTravelComments.userComments }}</p>
                               </div>
                               <div class="text-center">
-                              <button type="submit" class="btn btn-warning" value="Cancel" (click)="viewTravelComments = null">Hide Comments</button> <br/> <br/>
+                              <button type="submit" class="btn btn-warning btn-sm" value="Cancel" (click)="viewTravelComments = null">Hide Comments</button> <br/> <br/>
                               </div>
                             </div>
                         </div>
@@ -225,13 +223,61 @@
                           #userComments="ngModel" [(ngModel)]="updateTravel.userComments" placeholder="Comments (Optional):"></textarea>
 
                         <div class="text-center">
-                      <button type="submit" class="btn btn-warning" value="Cancel" (click)="updateTravel = null">Cancel</button> &nbsp;
-                      <button type="submit" class="btn btn-success" value="Update" [disabled]="!travelForm.valid" (click)="updateTravelReport(updateTravel, updateTravel.id)">Update</button>
+                      <button type="submit" class="btn btn-warning btn-sm" value="Cancel" (click)="updateTravel = null">Cancel</button> &nbsp;
+                      <button type="submit" class="btn btn-success btn-sm" value="Update" [disabled]="!travelForm.valid" (click)="updateTravelReport(updateTravel, updateTravel.id)">Update</button>
                     </div>
                 </form>
                 </div>
                 </div>
                 </div>
                 <br/>
-                <br/>
+
+                <section class="footer">
+                    <img class="Northstrat" width="100%" height="600rem" src="http://www.northstrat.net/northstrat/wp-content/uploads/2018/09/earth-1149733-e1536335141161.jpg">
+                  </section>
+
+                <!-- Footer -->
+<footer class="page-footer font-small teal pt-4">
+
+    <!-- Footer Text -->
+    <div class="container-fluid text-center text-md-left">
+
+      <!-- Grid row -->
+      <div class="row">
+
+        <!-- Grid column -->
+        <div class="col-md-6 mt-md-0 mt-3">
+
+          <!-- Content -->
+          <h5 class="text-uppercase font-weight-bold">Overhead Expense Reports</h5>
+          <p>Please fill out all overhead expense reports with accurate, detailed information to ensure a timely and efficient approval process. Reports are processed on a first-come, first-serve basis. </p>
+        </div>
+        <!-- Grid column -->
+
+        <hr class="clearfix w-100 d-md-none pb-3">
+
+        <!-- Grid column -->
+        <div class="col-md-6 mb-md-0 mb-3">
+
+          <!-- Content -->
+          <h5 class="text-uppercase font-weight-bold">Overhead Travel Reports</h5>
+          <p>Please fill out all overhead travel reports with accurate, detailed information to ensure a timely and efficient approval process. Reports are processed on a first-come, first-serve basis.</p>
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+    </div>
+    <!-- Footer Text -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2018 Copyright:
+      <a href="http://www.northstrat.net/northstrat/" target="_blank"> Northstrat.net</a>
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->
 
