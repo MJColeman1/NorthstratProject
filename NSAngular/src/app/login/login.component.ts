@@ -28,8 +28,7 @@ export class LoginComponent implements OnInit {
       // If error return this instead
       },
       err => {
-        console.log(err),
-        console.log(user);
+          alert('Invalid username and/or password. Please enter valid credentials.');
       }
     );
   };

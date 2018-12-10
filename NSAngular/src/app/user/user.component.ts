@@ -55,8 +55,15 @@ export class UserComponent implements OnInit {
 
   expense: Expense = new Expense();
 
+
   reload() {
     return this.getAllExpenses(), this.getAllTravelReports();
+  }
+
+  checkStatus(status: String) {
+      if (status === 'Rejected') { return 'red'; }
+      if (status === 'Approved') { return 'green'; }
+      if (status === 'Submitted for Review' || status === 'Under Review') { return 'yellow'; }
   }
 
   getAllExpenses() {

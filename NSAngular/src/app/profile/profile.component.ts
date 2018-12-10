@@ -13,6 +13,10 @@ export class ProfileComponent implements OnInit {
 
   confirmPassword = '';
 
+  usernames;
+
+  newUsername: String;
+
   constructor(private userService: UserService, private router: Router, private authService: AuthService) { }
 
   loggedInUser = this.userService.getUser().subscribe(data => this.loggedInUser = data);
@@ -34,7 +38,35 @@ export class ProfileComponent implements OnInit {
       error => console.log(error + ' kaboom in update password profile component'));
   }
 
+  getAllUsers() {
+    return this.userService.getAllUsernames().subscribe(
+      data => {
+        this.usernames = data;
+        console.log(this.usernames);
+      },
+      error => console.log(error));
+  }
+
+  compareUsernames(newUsername: String) {
+    for (let i = 0; i < this.usernames.length; i++) {
+      if (this.usernames[i] === newUsername.toUpperCase() ) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  compareCurrentUsername(currentUsername: String) {
+    for (let i = 0; i < this.usernames.length; i++) {
+      if (this.usernames[i] === currentUsername.toUpperCase) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   ngOnInit() {
+    return this.usernames = this.userService.getAllUsernames().subscribe(data => this.usernames = data);
   }
 
 }

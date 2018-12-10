@@ -57,7 +57,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(path = "/users", method = RequestMethod.GET)
-	public List<User> show()  {
-		return us.show();
+	public List<String> show()  {
+		return us.indexOfUsernames();
 	}
 }

@@ -26,7 +26,7 @@
       <td (click)="displayExpense(expense)">{{ expense.id }}</td>
       <td (click)="displayExpense(expense)">{{ expense.createdAt | date: 'short' }}</td>
       <td (click)="displayExpense(expense)">{{ expense.description }}</td>
-      <td (click)="displayExpense(expense)">{{ expense.status }}</td>
+      <td (click)="displayExpense(expense)" [ngClass]="checkStatus(expense.status)" style="color: white;">{{ expense.status }}</td>
     </tr>
   </table>
 
@@ -54,7 +54,7 @@
             <td *ngIf="selected.createdAt !== selected.updatedAt">{{ selected.updatedAt  | date: 'short' }}</td>
             <td><button type="button" class="btn btn-warning btn-sm" value="Delete" (click)="setViewExpenseComments()">View Comments</button></td>
             <td><button type="button" class="btn btn-warning btn-sm" value="Return to List" [disabled]="selected.status === 'Under Review' || selected.status === 'Approved'" (click)="setEditExpense()" *ngIf="selected">Edit Report</button> </td>
-            <td><button type="button" class="btn btn-danger btn-sm" value="Delete" (click)="deleteExpenseReport(selected.id)">Delete Report</button></td> </tr>
+            <td><button type="button" class="btn btn-danger btn-sm" value="Delete" [disabled]="selected.status === 'Under Review' || selected.status === 'Approved'" (click)="deleteExpenseReport(selected.id)">Delete Report</button></td> </tr>
         </table>
 
         <div class="d-flex justify-content-center align-items-center container">
@@ -137,7 +137,7 @@
               <td (click)="displayTravelReport(travel)">{{ travel.id }}</td>
               <td (click)="displayTravelReport(travel)">{{ travel.createdAt | date: 'short' }}</td>
               <td (click)="displayTravelReport(travel)">{{ travel.tripLocation }}</td>
-              <td (click)="displayTravelReport(travel)">{{ travel.status }}</td>
+              <td (click)="displayTravelReport(travel)" [ngClass]="checkStatus(travel.status)" style="color: white;">{{ travel.status }}</td>
             </tr>
           </table>
 
@@ -166,7 +166,7 @@
                     <td><button type="button" class="btn btn-warning btn-sm" *ngIf="clicked.userComments != null || clicked.userComments !== ''"
                       value="Delete" (click)="setViewTravelComments()">View Comments</button></td>
                     <td><button type="button" class="btn btn-warning btn-sm" value="Return to List" [disabled]="clicked.status === 'Under Review' || clicked.status === 'Approved'" (click)="setEditTravel()" *ngIf="clicked">Edit Report</button> </td>
-                    <td><button type="button" class="btn btn-danger btn-sm" value="Delete" (click)="deleteTravelReport(clicked.id)">Delete Report</button></td>
+                    <td><button type="button" class="btn btn-danger btn-sm" value="Delete" [disabled]="clicked.status === 'Under Review' || clicked.status === 'Approved'" (click)="deleteTravelReport(clicked.id)">Delete Report</button></td>
                   </tr>
                 </table>
 
@@ -230,6 +230,7 @@
                 </div>
                 </div>
                 </div>
+                <br/>
                 <br/>
 
                 <section class="footer">

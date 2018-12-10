@@ -2,6 +2,7 @@ package com.northstrat.services;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -64,8 +65,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> show() {
-		return ur.findAll();
+	public List<String> indexOfUsernames() {
+		List<String> usernames = new ArrayList<>();
+		List<User> users = ur.findAll();
+		for (User user : users) {
+			usernames.add(user.getUsername().toUpperCase());
+		}
+		return usernames;
 	}
 
 	@Override

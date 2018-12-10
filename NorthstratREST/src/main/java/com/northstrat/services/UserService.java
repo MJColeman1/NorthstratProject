@@ -19,7 +19,7 @@ public interface UserService {
 	
 	User updatePassword(User user, String username);
 	
-	List<User> show();
+	List<String> indexOfUsernames();
 	
 	public User authenticateUser(User user) throws NoResultException;
 

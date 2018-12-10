@@ -6,6 +6,7 @@
             <input type="text" required minlength="3" name="username" #username="ngModel" class="form-control mb-2 mr-sm-2"
             id="username" [(ngModel)]="user.username" placeholder="Username"/>
             <div class="alert alert-danger" *ngIf="username.touched && !username.valid">Username must contain minimum 3 characters.</div>
+            <div class="alert alert-danger" *ngIf="compareUsernames(user.username)">That Username is not available.</div>
 
           <label class="sr-only" for="password">Password:</label>
             <input type="password" required minlength="8" name="password" #password="ngModel" class="form-control mb-2 mr-sm-2"
@@ -38,7 +39,7 @@
             <div class="alert alert-danger" *ngIf="title.touched && !title.valid">Title must contain minimum 3 characters.</div>
 
           <div class="text-center">
-          <button class="btn btn-primary" type="submit" [disabled]="!f.valid" (click)="register(user)">Create Account</button>
+          <button class="btn btn-primary" type="submit" [disabled]="!f.valid || compareUsernames(user.username)" (click)="register(user)">Create Account</button>
           </div>
         </form>
       </div>

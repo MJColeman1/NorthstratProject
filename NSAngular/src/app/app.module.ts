@@ -21,6 +21,7 @@ import { AdminComponent } from './admin/admin.component';
 import { AuthGuardService } from './auth-guard.service';
 import { ReportStatusPipe } from './report-status.pipe';
 
+
 const routes: Routes = [
 { path: '', pathMatch: 'full', redirectTo: 'login'},
 { path: 'user', canActivate: [AuthGuardService], component: UserComponent },
@@ -32,7 +33,6 @@ const routes: Routes = [
 { path: 'admin', canActivate: [AuthGuardService], component: AdminComponent},
 { path: '**', component: NotFoundComponent}
 ];
-
 
 @NgModule({
   declarations: [
@@ -46,7 +46,7 @@ const routes: Routes = [
     NavigationComponent,
     ProfileComponent,
     AdminComponent,
-    ReportStatusPipe
+    ReportStatusPipe,
   ],
   imports: [
     BrowserModule,

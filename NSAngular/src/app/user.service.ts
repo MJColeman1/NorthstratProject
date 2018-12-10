@@ -77,5 +77,15 @@ export class UserService {
     );
   }
 
+  getAllUsernames() {
+    return this.http.get(this.url + '/users')
+    .pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError('kaboom in get all users user service');
+      })
+    );
+  }
+
   constructor(private http: HttpClient, private authService: AuthService) { }
 }
